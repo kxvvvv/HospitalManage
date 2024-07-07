@@ -12,5 +12,5 @@ public class Doctor {
     String job;//职称
     String degree;//学历
     int regFee;//挂号费用
-    //测试
+    //测试00001
 }
