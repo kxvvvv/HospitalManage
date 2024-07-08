@@ -1,7 +1,7 @@
 package pojo;
-
+import lombok.Data;
 import java.time.LocalDateTime;
-
+@Data
 //挂号
 public class Registered {
     // 挂号ID
@@ -30,6 +30,21 @@ public class Registered {
 
     // 预约时段，0为上午，1为下午
     Integer timeframe;
+public Registered(){}
+    public Registered(Integer registrationId,Integer docId,
+                      LocalDateTime appointmentDate,
+                      Integer peopleBefore,  Integer timeframe,
+                      Integer patientId, String fee,Integer status,LocalDateTime registrationTime){
+    this.appointmentDate=appointmentDate;
+    this.fee=fee;
+    this.status=status;
+    this.registrationId=registrationId;
+    this.docId=docId;
+    this.peopleBefore=peopleBefore;
+    this.timeframe=timeframe;
+    this.patientId=patientId;
+    this.registrationTime=registrationTime;
+    }
 
 
 }
