@@ -4,6 +4,9 @@
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="jdbc.properties"></properties>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
     <typeAliases>
         <package name="pojo"/>
     </typeAliases>
@@ -21,6 +24,7 @@
     <mappers>
         <mapper resource="mapper/AdminMapper.xml"/>
         <mapper resource="mapper/DoctorMapper.xml"/>
+        <mapper resource="mapper/PatientMapper.xml"/>
         <package name="mapper/sqlGenerator.java"/>
     </mappers>
 </configuration>
