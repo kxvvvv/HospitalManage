@@ -7,4 +7,5 @@ public class Admin {
     int role;//默认为0：管理员
     String adminAcc;
     String adminPwd;
-}
+};
+
