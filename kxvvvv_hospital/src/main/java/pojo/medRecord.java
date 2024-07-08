@@ -25,9 +25,6 @@ public class medRecord {
     // 创建时间
     LocalDateTime createTime;
 
-    // 药品ID
-    Integer drugId;
-
     // 该病例对应的挂号ID
     Integer regId;
 }

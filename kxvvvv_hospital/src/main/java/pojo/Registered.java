@@ -30,4 +30,6 @@ public class Registered {
 
     // 预约时段，0为上午，1为下午
     Integer timeframe;
+
+
 }
