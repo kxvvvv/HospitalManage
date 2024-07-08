@@ -18,9 +18,23 @@
                    #{age}
                )
     </insert>
-    <select id="patientLogin" parameterType="hashmap" resultType="int">
-        select role
-        from patient,doctor,admin
-        where patient_acc=#{patAcc} AND patient_pwd=#{patPwd};
+<!--    病人登录-->
+    <select id="patientLogin" parameterType="hashmap" resultType="Integer">
+        select patient_id
+        from patient
+        where patient_acc=#{inAcc}
+          AND patient_pwd=#{inPwd};
+    </select>
+    <select id="doctorLogin" parameterType="hashmap" resultType="Integer">
+        SELECT doc_id
+        FROM doctor
+        WHERE doc_acc = #{inAcc}
+          AND doc_pwd = #{inPwd};
+    </select>
+    <select id="adminLogin" parameterType="hashmap" resultType="Integer">
+        SELECT admin_id
+        FROM admin
+        WHERE admin_acc = #{inAcc}
+          AND admin_pwd = #{inPwd};
     </select>
 </mapper>

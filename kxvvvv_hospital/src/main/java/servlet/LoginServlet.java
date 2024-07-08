@@ -2,6 +2,7 @@ package servlet;
 
 import mapper.PatientMapper;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +15,6 @@ import mapper.*;
 import pojo.*;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
-import utils.MyBatisUtil;
 import utils.MyBatisUtil;
 import java.util.HashMap;
 import java.util.List;
@@ -29,9 +29,53 @@ public class LoginServlet extends HttpServlet {
         String inAcc=req.getParameter("inAcc");
         String inPwd=req.getParameter("inPwd");
         Map<String,Object> map=new HashMap<>();
-        map.put("patAcc",inAcc);
-        map.put("patPwd",inPwd);
-        int role=patientMapper.patientLogin(map);
+        String identity=req.getParameter("identity");
+
+        map.put("inAcc",inAcc);
+        map.put("inPwd",inPwd);
+        Integer role = null;
+        if ("patient".equals(identity)) {
+            role = patientMapper.patientLogin(map);
+            System.out.println("+++++++++++patientLoginExecute");
+        } else if ("doctor".equals(identity)) {
+            role = patientMapper.doctorLogin(map);
+        } else if ("admin".equals(identity)) {
+            role = patientMapper.adminLogin(map);
+        }
         System.out.println("+++++++++++testLogin="+role);
+        System.out.println("+++++++++++identity="+identity);
+
+// 检查 role 是否为 null 或者未找到用户时的特定值（如 -1）
+        if (role == null || role == -1) {
+            String errorMessage = "账号或密码错误，请重新输入！";
+            req.setAttribute("errorMessage", errorMessage);
+            // 转发到错误页面
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
+            if (dispatcher != null) {
+                try {
+                    dispatcher.forward(req, resp);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
+            }
+        }
+        //登录成功，跳转主页
+        else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.html");
+            if (dispatcher != null) {
+                try {
+                    dispatcher.forward(req, resp);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
+            }
+        }
+
+
+
     }
 }
