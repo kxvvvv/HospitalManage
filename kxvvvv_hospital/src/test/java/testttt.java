@@ -88,7 +88,6 @@ public class testttt {
                 0, // status
                 LocalDateTime.now(), // registration_time
                 LocalDate.now(), // appointment_date
-                0, // people_before
                 1 // timeframe
         );
         mapper.insertRegistration(registration);

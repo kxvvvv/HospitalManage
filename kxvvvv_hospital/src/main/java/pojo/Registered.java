@@ -26,13 +26,10 @@ public class Registered {
     // 病人预约的就诊日期
     LocalDate appointment_date;
 
-    // 当前所预约时段(上下午)已有人数，20为满
-    Integer people_before;
-
     // 预约时段，0为上午，1为下午
     Integer timeframe;
 
-    public Registered(Integer registration_id, Integer doc_id, Integer patient_id, String fee, Integer status, LocalDateTime registration_time, LocalDate appointment_date, Integer people_before, Integer timeframe) {
+    public Registered(Integer registration_id, Integer doc_id, Integer patient_id, String fee, Integer status, LocalDateTime registration_time, LocalDate appointment_date, Integer timeframe) {
         this.registration_id = registration_id;
         this.doc_id = doc_id;
         this.patient_id = patient_id;
@@ -40,7 +37,6 @@ public class Registered {
         this.status = status;
         this.registration_time = registration_time;
         this.appointment_date = appointment_date;
-        this.people_before = people_before;
         this.timeframe = timeframe;
     }
 
