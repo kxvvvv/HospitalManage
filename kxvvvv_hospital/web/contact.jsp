@@ -1,4 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="pojo.Patient" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -16,13 +20,16 @@
     <link rel="stylesheet" href="css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   </head>
   <body>
     <!-- navbar-->
     <header class="header">
       <!-- Primary Navbar-->
       <nav class="navbar navbar-expand-lg navbar-light py-4 border-bottom border-gray bg-white">
-        <div class="container d-flex align-items-center justify-content-between"><a class="navbar-brand" href="index.html"><img src="img/logo.svg" alt="" width="170"></a>
+        <div class="container d-flex align-items-center justify-content-between"><a class="navbar-brand" href="index.html"><img src="img/logo.svg" alt="" width="100"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <ul class="list-inline mb-0 d-none d-lg-block">
             <li class="list-inline-item me-3">
@@ -133,34 +140,86 @@
               <div class="card-body p-5 border-top border-primary border-2">
                 <h2 class="lined">Make an <span class="text-primary">Appointment</span></h2>
                 <p class="text-muted mb-4">Nulla tristique ipsum in quam. Integer ac elit. Duis turpis faucibus non</p>
-                <form class="make-appointment-form" action="!#">
+                <form class="make-appointment-form" action="/registered" method="post">
                   <div class="row gy-4">
+                    <%
+
+                      String patientName =(session.getAttribute("patName")==null)? "":(String) session.getAttribute("patName");
+                    %>
                     <div class="col-lg-6">
-                      <input class="form-control" type="text" name="firstName" placeholder="姓名">
+                      <input class="form-control" type="text" name="firstName"
+                             placeholder="姓名" value="<%= patientName %>">
                     </div>
+
+                    <%
+                      String patientId = (session.getAttribute("patId")==null)? "":(String) session.getAttribute("patId");
+                    %>
                     <div class="col-lg-6">
-                      <input class="form-control" type="text" name="lastName" placeholder="身份证号">
+                      <input class="form-control" type="text" name="lastName" placeholder="身份证号" value="<%= patientId%>">
                     </div>
+
+                    <%
+                      String patientPhone = (session.getAttribute("patPhone")==null)? "":(String) session.getAttribute("patPhone");
+
+                    %>
                     <div class="col-lg-6">
-                      <input class="form-control" type="tel" name="phone" placeholder="手机号">
+                      <input class="form-control" type="tel" name="phone" placeholder="手机号" value="<%= patientPhone%>">
                     </div>
+
                     <div class="col-lg-6">
-                      <input class="form-control" type="text" name="date" placeholder="预约日期">
+                      <input class="form-control" type="text" name="date" id="datePicker" placeholder="预约日期">
                     </div>
+
+                    <script>
+                      $(document).ready(function(){
+                        var dateInput = $('#datePicker');
+                        dateInput.datepicker({
+                          todayBtn: "linked",
+                          autoclose: true,
+                          todayHighlight: true
+                        }).on('changeDate', function() {
+                          dateInput.datepicker('hide');
+                        });
+                      });
+                    </script>
                     <div class="col-lg-6">
-                      <select class="form-select" name="gender">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
+                      <select class="form-select" name="timeframe">
+                        <option value=0>上午</option>
+                        <option value=1>下午</option>
                       </select>
                     </div>
                     <div class="col-lg-6">
-                      <select class="form-select" name="department">
-                        <option value="">Department</option>
-                        <option value="medicine">Medicine</option>
-                        <option value="dental">Dental Care </option>
-                        <option value="traumatology">Traumatology</option>
+                      <select id="RegisteredDoctor" class="form-select" name="RegisteredDoctor">
+                        <!-- 选项将通过AJAX动态插入 -->
                       </select>
                     </div>
+
+                    <script>
+                      $(document).ready(function() {
+                        try {
+                          $.ajax({
+                            url: '/showData', // 你的Servlet URL
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(doctors) {
+                              // 清空select元素
+                              $('#RegisteredDoctor').empty();
+                              // 遍历医生数据并添加到select元素
+                              $.each(doctors, function(index, doctor) {
+                                $('#RegisteredDoctor').append(
+                                        $('<option></option>').val(doctor.id).text(doctor.name)
+                                );
+                              });
+                            },
+                            error: function() {
+                              alert('Error loading doctors information');
+                            }
+                          });
+                        } catch (error) {
+                          console.error('AJAX请求异常:', error);
+                        }
+                      });
+                    </script>
                     <div class="col-lg-12">
                       <textarea class="form-control" name="sepcialRequest" rows="5" placeholder="Special Request"></textarea>
                     </div>
@@ -216,39 +275,7 @@
       </div>
     </section>
     <!-- Make Appointment Section-->
-    <section>
-      <div class="container text-center">
-        <h2 class="lined lined-center">Drop us a <span class="text-primary">line</span></h2>
-        <p class="text-muted mb-5">Nulla tristique ipsum in quam. Integer ac elit. Duis turpis faucibus non</p>
-        <div class="row">
-          <div class="col-lg-7 mx-auto">
-            <div class="card border-0 shadow-sm">
-              <div class="card-body border-top border-2 border-primary p-5">
-                <form class="make-appointment-form" action="#">
-                  <div class="row gy-4">
-                    <div class="col-lg-12">
-                      <input class="form-control" type="text" name="name" placeholder="Full Name">
-                    </div>
-                    <div class="col-lg-6">
-                      <input class="form-control" type="email" name="email" placeholder="Email Address">
-                    </div>
-                    <div class="col-lg-6">
-                      <input class="form-control" type="tel" name="phone" placeholder="Phone Number">
-                    </div>
-                    <div class="col-lg-12">
-                      <textarea class="form-control" name="message" rows="5" placeholder="Tell us about your request"></textarea>
-                    </div>
-                    <div class="col-lg-12">
-                      <button class="btn btn-primary w-100" type="submit">Send message</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    
     <footer class="footer pt-5">
       <div class="container pt-5">
         <div class="row gy-4">

@@ -37,4 +37,9 @@
         WHERE admin_acc = #{inAcc}
           AND admin_pwd = #{inPwd};
     </select>
+    <select id="selectByAcc" parameterType="String" resultType="Patient">
+        SELECT *
+        FROM patient
+        WHERE patient_acc=#{acc};
+    </select>
 </mapper>

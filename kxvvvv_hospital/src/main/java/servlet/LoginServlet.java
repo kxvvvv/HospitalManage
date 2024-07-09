@@ -5,6 +5,7 @@ import mapper.PatientMapper;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import pojo.*;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import utils.MyBatisUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,8 +63,17 @@ public class LoginServlet extends HttpServlet {
                 resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
             }
         }
-        //登录成功，跳转主页
+        //登录成功，跳转主页,存储session
         else {
+            Patient patient=new Patient();
+            patient=patientMapper.selectByAcc(inAcc);
+
+            String patientName = patient.getName(); // 假设patient对象已经获取到
+            req.getSession().setAttribute("patName", patient.getName()); // 存储到Session
+            req.getSession().setAttribute("patId", patient.getId());
+            req.getSession().setAttribute("patPhone", patient.getPhone());
+            req.getSession().setAttribute("patName", patient.getName());
+//            System.out.println("++++++++Patient:"+patientJson);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.html");
             if (dispatcher != null) {
                 try {

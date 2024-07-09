@@ -10,4 +10,16 @@
         WHERE doc_acc = #{docAcc}
           AND doc_pwd = #{docPwd};
     </select>
+    <select id="selectAllDoctorId" resultType="Integer">
+        select doc_id
+        from doctor
+    </select>
+    <select id="selectById" resultType="Doctor" parameterType="int">
+        select *
+        from doctor
+        where doc_id in
+        <foreach item="id" collection="docIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>
