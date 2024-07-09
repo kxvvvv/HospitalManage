@@ -5,11 +5,13 @@
 <mapper namespace="mapper.medRecordMapper">
 
     <insert id="insertMedRecord" parameterType="pojo.medRecord">
-        INSERT INTO medical_records (patient_id, doctor_id, gender, age, treatment_plan, create_time, reg_id)
-        VALUES (#{patientId}, #{doctorId}, #{gender}, #{age}, #{treatmentPlan}, #{createTime}, #{regId})
+        INSERT
+        INTO
+        medical_record (patient_id, doctor_id, gender, age, treatment_plan, create_time, reg_id)
+        VALUES (#{patient_id}, #{doctor_id}, #{gender}, #{age}, #{treatment_plan}, #{create_time}, #{reg_id})
     </insert>
 
     <select id="selectMedRecordByPid" resultType="pojo.medRecord">
-        SELECT * FROM medical_records WHERE patient_id = #{pid}
+        SELECT * FROM medical_record WHERE patient_id = #{pid}
     </select>
 </mapper>

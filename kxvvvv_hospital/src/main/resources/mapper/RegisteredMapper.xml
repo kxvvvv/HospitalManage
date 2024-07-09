@@ -3,21 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.RegisteredMapper">
-    <select id="canRegister" resultType="int">
-        SELECT COUNT(*) FROM registrations WHERE doc_id = #{docId} AND appointment_date = #{appointmentDate} AND timeframe = #{timeframe}
+    <select id="countRegister" resultType="int">
+        SELECT COUNT(*) FROM registered WHERE doc_id=#{doc_id} AND appointment_date=#{appointment_date} AND timeframe=#{timeframe}
     </select>
 
     <insert id="insertRegistration" parameterType="pojo.Registered">
-        INSERT INTO registrations (doc_id, patient_id, fee, status, registration_time, appointment_date, people_before, timeframe)
-        VALUES (#{docId}, #{patientId}, #{fee}, #{status}, #{registrationTime}, #{appointmentDate}, #{peopleBefore}, #{timeframe})
+        INSERT INTO registered (doc_id, patient_id, fee, status, registration_time, appointment_date, people_before, timeframe)
+        VALUES (#{doc_id}, #{patient_id}, #{fee}, #{status}, #{registration_time}, #{appointment_date}, #{people_before}, #{timeframe})
     </insert>
 
-    <update id="changeStatusByDoctor">
-        UPDATE registrations SET status = 1 WHERE registration_id = #{registrationId}
+    <update id="changeStatusByDoctor1">
+        UPDATE registered SET status = 1 WHERE registration_id = #{registration_id}
     </update>
 
-    <update id="changeStatusByPatient">
-        UPDATE registrations SET status = 2 WHERE registration_id = #{registrationId}
+    <update id="changeStatusByDoctor2">
+        UPDATE registered SET status = 2 WHERE registration_id = #{registration_id}
     </update>
 
 </mapper>
