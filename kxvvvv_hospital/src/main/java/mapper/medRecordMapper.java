@@ -1,5 +1,5 @@
 package mapper;
-import pojo.*;
+import pojo.medRecord;
 
 import java.util.List;
 

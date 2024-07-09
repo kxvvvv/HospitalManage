@@ -1,48 +1,30 @@
 package pojo;
-
+import lombok.Data;
+@Data
 public class Patient {
-    String name;//名称
-    String patPwd;//密码
-    String patAcc;//账号
-    String address;//地址
-    String phone;//手机号
-    String id;//身份证号
-    int balance;//余额
-    int role;//已默认为2，表示权限，不需要赋值与更改
-    int age;//年龄
-    public String getName() {
-        return name;
-    }
-
-    public String getPatPwd() {
-        return patPwd;
-    }
-
-    public String getPatAcc() {
-        return patAcc;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public int getAge() {
-        return age;
+    private String name;
+    private String patient_pwd;
+    private Integer role;
+    private String address;
+    private Integer patient_id;
+    private String id;
+    private Integer age;
+    private String phone;
+    private String patient_acc;
+    private Integer balance;
+    public Patient(){};
+    public Patient(String name, String patient_pwd,Integer role,String address,
+                   Integer patient_id,String id,Integer age,String phone,String patient_acc,Integer balance){
+        this.name=name;
+        this.patient_pwd=patient_pwd;
+        this.role=role;
+        this.address=address;
+        this.patient_id=patient_id;
+        this.id=id;
+        this.age=age;
+        this.phone=phone;
+        this.patient_acc=patient_acc;
+        this.balance=balance;
     }
 }
+
