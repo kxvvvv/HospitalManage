@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.RateMapper">
+
+    <!-- 插入评论 -->
+    <insert id="insertRate" parameterType="pojo.Rate">
+        INSERT INTO rate (rating, comment, doc_id, patient_id, rate_state, rate_date)
+        VALUES (#{rating}, #{comment}, #{doc_id}, #{patient_id}, #{rate_state}, #{rate_date})
+    </insert>
+
+    <!-- 根据医生id查询评论 -->
+    <select id="selectRatesByDoctorId" resultType="pojo.Rate" parameterType="int">
+        SELECT * FROM rate WHERE doc_id = #{doctorId}
+    </select>
+
+    <!-- 更改rate_state为1 -->
+    <update id="updateRateStateTo1" parameterType="int">
+        UPDATE rate SET rate_state = 1 WHERE rate_id = #{rateId}
+    </update>
+
+    <!-- 更改rate_state为2 -->
+    <update id="updateRateStateTo2" parameterType="int">
+        UPDATE rate SET rate_state = 2 WHERE rate_id = #{rateId}
+    </update>
+
+</mapper>

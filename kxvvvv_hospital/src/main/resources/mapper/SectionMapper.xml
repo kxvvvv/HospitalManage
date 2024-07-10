@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.SectionMapper">
+
+    <!-- 插入科室 -->
+    <insert id="insertSection" parameterType="pojo.Section">
+        INSERT INTO section (sec_doctor_id, sec_name, sec_inform)
+        VALUES (#{sec_doctor_id}, #{sec_name}, #{sec_inform})
+    </insert>
+
+    <!-- 删除科室 -->
+    <delete id="deleteSectionById" parameterType="int">
+        DELETE FROM section WHERE sec_id = #{id}
+    </delete>
+
+    <!-- 查询所有科室 -->
+    <select id="selectAllSections" resultType="pojo.Section">
+        SELECT * FROM section
+    </select>
+
+    <!-- 根据科室id更新信息 -->
+    <update id="updateSectionById" parameterType="pojo.Section">
+        UPDATE section SET
+                            sec_doctor_id = #{sec_doctor_id},
+                            sec_name = #{sec_name},
+                            sec_inform = #{sec_inform}
+        WHERE sec_id = #{sec_id}
+    </update>
+
+</mapper>

@@ -29,6 +29,9 @@
         <mapper resource="mapper/PatientMapper.xml"/>
         <mapper resource="mapper/RegisteredMapper.xml"/>
         <mapper resource="mapper/medRecord_DrugMapper.xml"/>
+        <mapper resource="mapper/DrugMapper.xml"/>
+        <mapper resource="mapper/RateMapper.xml"/>
+        <mapper resource="mapper/SectionMapper.xml"/>
         <package name="mapper/sqlGenerator.java"/>
     </mappers>
 </configuration>

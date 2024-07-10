@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.DrugMapper">
+
+    <!-- 插入药品 -->
+    <insert id="insertDrug" parameterType="pojo.Drug">
+        INSERT INTO drug (drug_name, `function`, drug_price, inbound_date, expiration_date, stock_quantity)
+        VALUES (#{drug_name}, #{function}, #{drug_price}, #{inbound_date}, #{expiration_date}, #{stock_quantity})
+    </insert>
+
+    <!-- 删除药品 -->
+    <delete id="deleteDrugById" parameterType="int">
+        DELETE FROM drug WHERE drug_id = #{drugId}
+    </delete>
+
+    <!-- 增加药品数量 -->
+    <update id="increaseStockQuantity">
+        UPDATE drug SET stock_quantity = stock_quantity + #{quantity} WHERE drug_id = #{drugId}
+    </update>
+
+    <!-- 减少药品数量 -->
+    <update id="decreaseStockQuantity" parameterType="map">
+        UPDATE drug SET stock_quantity = stock_quantity - #{quantity} WHERE drug_id = #{drugId}
+    </update>
+
+    <!-- 根据drug_id查询药品 -->
+    <select id="selectDrugById" resultType="pojo.Drug">
+        SELECT * FROM drug WHERE drug_id = #{drugId}
+    </select>
+
+    <!-- 显示所有药品 -->
+    <select id="selectAllDrugs" resultType="pojo.Drug">
+        SELECT * FROM drug
+    </select>
+</mapper>
