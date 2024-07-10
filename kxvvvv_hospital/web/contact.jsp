@@ -57,21 +57,33 @@
           <div class="collapse navbar-collapse py-3 py-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                    <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="index.jsp">主页</a>
+                <!-- Link--><a class="nav-link text-uppercase letter-spacing-0 active" href="index.jsp">主页</a>
               </li>
               <li class="nav-item">
-                    <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="about.html">关于我们</a>
+                <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="about.html">关于我们</a>
               </li>
               <li class="nav-item">
-                    <!-- Link--><a class="nav-link text-uppercase letter-spacing-0 active" href="contact.html">联系我们</a>
+                <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="contact.jsp">联系我们</a>
               </li>
-              <li class="nav-item dropdown"><a class="nav-link text-uppercase letter-spacing-0 dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多</a>
-                <div class="dropdown-menu border-0 border-top border-2 border-primary shadow-sm mt-0" aria-labelledby="navbarDropdown"><a class="dropdown-item" href="#!">Action</a><a class="dropdown-item" href="#!">Another action</a><a class="dropdown-item" href="#!">Something else here</a></div>
+              <li class="nav-item dropdown">
+                <a class="nav-link text-uppercase letter-spacing-0 dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多</a>
+                <div class="dropdown-menu border-0 border-top border-2 border-primary shadow-sm mt-0" aria-labelledby="navbarDropdown">
+                  <c:if test="${sessionScope.role == -1 or sessionScope.role == null}">
+                    <a class="dropdown-item" href="login.jsp">登录</a>
+                  </c:if>
+                  <c:if test="${sessionScope.role != -1 and sessionScope.role != null}">
+                    <a class="dropdown-item" href="#!">个人信息</a>
+                  </c:if>
+                  <c:if test="${sessionScope.role == 1}">
+                    <a class="dropdown-item" href="treatment.jsp">诊断</a>
+                  </c:if>
+                  <a class="dropdown-item" href="#!">Something else here</a>
+                </div>
               </li>
             </ul>
             <ul class="navbar-nav ms-auto">
               <li class="nav-item"><a class="nav-link px-4 d-inline-block" id="searchToggler" href="#"><i class="fas fa-search text-muted"></i><i class="fas fa-times text-muted d-none"></i></a></li>
-              <li class="nav-item"><a class="nav-link text-uppercase letter-spacing-0 border-start px-4 bg-primary text-white d-inline-block" href="contact.html">挂号</a></li>
+              <li class="nav-item"><a class="nav-link text-uppercase letter-spacing-0 border-start px-4 bg-primary text-white d-inline-block" href="contact.jsp">挂号</a></li>
             </ul>
           </div>
         </div>

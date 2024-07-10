@@ -22,4 +22,9 @@
             #{id}
         </foreach>
     </select>
+    <select id="selectByAcc" parameterType="String" resultType="Doctor">
+        SELECT *
+        FROM doctor
+        WHERE doc_acc=#{acc};
+    </select>
 </mapper>

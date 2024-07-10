@@ -64,7 +64,7 @@ public class RegisteredServlet extends HttpServlet {
         // 从session获取patient登录时存进来的patId
         Integer patientId = (Integer) session.getAttribute("patientId");
         if(patientId == null){//未登录直接挂号的话给跳回登录界面
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.html");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
             if (dispatcher != null) {
                 try {
                     dispatcher.forward(req, resp);

@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
     protected  void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         SqlSession sqlSession= MyBatisUtil.getSqlSession();
         PatientMapper patientMapper=sqlSession.getMapper(PatientMapper.class);
+        DoctorMapper doctorMapper=sqlSession.getMapper(DoctorMapper.class);
         String inAcc=req.getParameter("inAcc");
         String inPwd=req.getParameter("inPwd");
         Map<String,Object> map=new HashMap<>();
@@ -35,19 +36,24 @@ public class LoginServlet extends HttpServlet {
 
         map.put("inAcc",inAcc);
         map.put("inPwd",inPwd);
+        Integer id = null;
         Integer role = null;
         if ("patient".equals(identity)) {
-            role = patientMapper.patientLogin(map);
+            id = patientMapper.patientLogin(map);
+            role=2;
             System.out.println("+++++++++++patientLoginExecute");
         } else if ("doctor".equals(identity)) {
-            role = patientMapper.doctorLogin(map);
+            id = patientMapper.doctorLogin(map);
+            role=1;
         } else if ("admin".equals(identity)) {
-            role = patientMapper.adminLogin(map);
+            id = patientMapper.adminLogin(map);
+            role=0;
         }
-        System.out.println("+++++++++++testLogin="+role);
+        System.out.println("+++++++++++testLogin="+id);
+        System.out.println("+++++++++++testLoginRole="+role);
         System.out.println("+++++++++++identity="+identity);
 
-        if (role == null || role == -1) {
+        if (id == null || id == -1) {
             String errorMessage = "账号或密码错误，请重新输入！";
             req.setAttribute("errorMessage", errorMessage);
             // 转发到错误页面
@@ -64,7 +70,8 @@ public class LoginServlet extends HttpServlet {
         }
         //登录成功，跳转主页,存储session
         else {
-            req.getSession().setAttribute("role",role);
+            req.getSession().setAttribute("role",role);//存放权限
+            req.getSession().setAttribute("id",id);//存放登录id
             if("patient".equals(identity)){
                 Patient patient=new Patient();
                 patient=patientMapper.selectByAcc(inAcc);
@@ -88,7 +95,27 @@ public class LoginServlet extends HttpServlet {
                     resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
                 }
             }
+            if("doctor".equals(identity)){
+                Doctor doctor=new Doctor();
+                doctor=doctorMapper.selectByAcc(inAcc);
 
+                String doctorName = doctor.getName(); // 假设patient对象已经获取到
+
+                req.getSession().setAttribute("doctorId", doctor.getDocId());//id
+                System.out.println("========doctorId:"+doctor.getDocId());
+
+//            System.out.println("++++++++Patient:"+patientJson);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                if (dispatcher != null) {
+                    try {
+                        dispatcher.forward(req, resp);
+                    } catch (ServletException | IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
+                }
+            }
         }
 
 

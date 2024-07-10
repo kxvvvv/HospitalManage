@@ -65,12 +65,14 @@
                         <a class="nav-link text-uppercase letter-spacing-0 dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多</a>
                         <div class="dropdown-menu border-0 border-top border-2 border-primary shadow-sm mt-0" aria-labelledby="navbarDropdown">
                             <c:if test="${sessionScope.role == -1 or sessionScope.role == null}">
-                                <a class="dropdown-item" href="login.html">登录</a>
+                                <a class="dropdown-item" href="login.jsp">登录</a>
                             </c:if>
                             <c:if test="${sessionScope.role != -1 and sessionScope.role != null}">
                                 <a class="dropdown-item" href="#!">个人信息</a>
                             </c:if>
-
+                            <c:if test="${sessionScope.role == 1}">
+                                <a class="dropdown-item" href="treatment.jsp">诊断</a>
+                            </c:if>
                             <a class="dropdown-item" href="#!">Something else here</a>
                         </div>
                     </li>

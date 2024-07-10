@@ -10,4 +10,7 @@ public interface DoctorMapper {
     //ceshi00002
     List<Integer> selectAllDoctorId();//查询返回所有医生id
     List<Doctor> selectById(@Param("docIds") List<Integer> docIds);//根据多个id查询
+
+    Doctor selectByAcc(String acc);//根据账号返回医生
+
 }
