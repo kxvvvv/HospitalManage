@@ -16,19 +16,19 @@ import java.util.List;
 import java.util.Map;
 public class testttt {
     @Test
-    public void test1(){
-        SqlSession sqlSession= MyBatisUtil.getSqlSession();
+    public void test1() {
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
 
         System.out.println(1145919810);
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         //验证查病历
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         medRecordMapper mapper = sqlSession.getMapper(medRecordMapper.class);
@@ -53,7 +53,7 @@ public class testttt {
         //验证插入病历
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         medRecordMapper mapper = sqlSession.getMapper(medRecordMapper.class);
-        medRecord record = new medRecord(12, 1, 1,"man", 30, "Take medication twice a day",  LocalDateTime.now(), 2);
+        medRecord record = new medRecord(12, 1, 1, "man", 30, "Take medication twice a day", LocalDateTime.now(), 2);
 // 使用 SqlSession 的 update 方法来执行插入操作
         sqlSession.update("insertMedRecord", record);
 
@@ -72,7 +72,7 @@ public class testttt {
 //        int count= mapper.countRegister(1,LocalDate.now(), 1);
         LocalDate appointment_date = LocalDate.now();
         int count;
-        count = mapper.countRegister(1,appointment_date,1);
+        count = mapper.countRegister(1, appointment_date, 1);
         System.out.println(count);
     }
 
@@ -88,37 +88,73 @@ public class testttt {
                 0, // status
                 LocalDateTime.now(), // registration_time
                 LocalDate.now(), // appointment_date
-                0, // people_before
                 1 // timeframe
         );
-//        mapper.insertRegistration(registration);
+        mapper.insertRegistration(registration);
         sqlSession.commit();
         int count = mapper.countRegister(1, LocalDate.now(), 1);
         System.out.println("挂号成功数量: " + count);
         sqlSession.close();
     }
 
-//    @Test
-//    public void test7() {
-//        SqlSession sqlSession = MyBatisUtil.getSqlSession();
-//        RegisteredMapper mapper = sqlSession.getMapper(RegisteredMapper.class);
-//
-//        int registration_id = 1; // 假设存在registration_id为1的记录
-//
-//        mapper.changeStatusByDoctor1(registration_id);
-//        sqlSession.commit();
-//        sqlSession.close();
-//    }
-//
-//    @Test
-//    public void test8() {
-//        SqlSession sqlSession = MyBatisUtil.getSqlSession();
-//        RegisteredMapper mapper = sqlSession.getMapper(RegisteredMapper.class);
-//
-//        int registration_id = 1; // 假设存在registration_id为1的记录
-//
-//        mapper.changeStatusByDoctor2(registration_id);
-//        sqlSession.commit();
-//        sqlSession.close();
-//    }
+    @Test
+    public void test7() {
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        RegisteredMapper mapper = sqlSession.getMapper(RegisteredMapper.class);
+
+        int registration_id = 1; // 假设存在registration_id为1的记录
+
+        mapper.changeStatusByDoctor1(registration_id);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Test
+    public void test8() {
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        RegisteredMapper mapper = sqlSession.getMapper(RegisteredMapper.class);
+
+        int registration_id = 1; // 假设存在registration_id为1的记录
+
+        mapper.changeStatusByDoctor2(registration_id);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    @Test
+    public void test9() {
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        medRecord_DrugMapper mapper = sqlSession.getMapper(medRecord_DrugMapper.class);
+        Integer mid = 1;
+        List<medRecord_Drug> medRecord_drug = mapper.selectpatientdrugByMid(mid);
+// 输出结果
+        for (medRecord_Drug recordDrug : medRecord_drug) {
+            System.out.println("Medical Record ID: " + recordDrug.getMedical_record_id());
+            System.out.println("Drud ID: " + recordDrug.getDrug_id());
+            System.out.println("------------------------------");
+        }
+    }
+
+
+    @Test
+    public void test10() {
+        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+        medRecord_DrugMapper mapper = sqlSession.getMapper(medRecord_DrugMapper.class);
+        medRecord_Drug medRecord_drug = new medRecord_Drug(3,2);
+        mapper.insertpatientanddrug(medRecord_drug);
+        sqlSession.commit();
+        //测试是否插入成功
+        Integer mid = 3;
+        List<medRecord_Drug> medRecord_drug2 = mapper.selectpatientdrugByMid(mid);
+// 输出结果
+        for (medRecord_Drug recordDrug : medRecord_drug2) {
+            System.out.println("Medical Record ID: " + recordDrug.getMedical_record_id());
+            System.out.println("Drud ID: " + recordDrug.getDrug_id());
+            System.out.println("------------------------------");
+        }
+        sqlSession.close();
+    }
+
+
+
 }
