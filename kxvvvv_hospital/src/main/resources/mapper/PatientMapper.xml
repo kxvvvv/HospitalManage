@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.PatientMapper">
+    <!--    病人注册-->
+    <insert id="patientRegister" parameterType="hashmap">
+        INSERT INTO patient (name, patient_pwd, patient_acc, address, phone, id, balance, role, age)
+        VALUES (
+                   #{name},
+                   #{patPwd},
+                   #{patAcc},
+                   #{address},
+                   #{phone},
+                   #{id},
+                   #{balance},
+                   2,
+                   #{age}
+               )
+    </insert>
+<!--    病人登录-->
+    <select id="patientLogin" parameterType="hashmap" resultType="Integer">
+        select patient_id
+        from patient
+        where patient_acc=#{inAcc}
+          AND patient_pwd=#{inPwd};
+    </select>
+    <select id="doctorLogin" parameterType="hashmap" resultType="Integer">
+        SELECT doc_id
+        FROM doctor
+        WHERE doc_acc = #{inAcc}
+          AND doc_pwd = #{inPwd};
+    </select>
+    <select id="adminLogin" parameterType="hashmap" resultType="Integer">
+        SELECT admin_id
+        FROM admin
+        WHERE admin_acc = #{inAcc}
+          AND admin_pwd = #{inPwd};
+    </select>
+    <select id="selectByAcc" parameterType="String" resultType="Patient">
+        SELECT *
+        FROM patient
+        WHERE patient_acc=#{acc};
+    </select>
+</mapper>

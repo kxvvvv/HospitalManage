@@ -4,9 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.DoctorMapper">
 <!--    医生登录，返回医生id-->
-    <select id="doctorLogin">
-        SELECT doc_id FROM users
-        WHERE doc_acc = 'acc'
-        AND doc_pwd = PASSWORD('pwd');
+    <select id="doctorLogin" parameterType="hashmap" resultType="int">
+        SELECT doc_id
+        FROM doctor
+        WHERE doc_acc = #{docAcc}
+          AND doc_pwd = #{docPwd};
+    </select>
+    <select id="selectAllDoctorId" resultType="Integer">
+        select doc_id
+        from doctor
+    </select>
+    <select id="selectById" resultType="Doctor" parameterType="int">
+        select *
+        from doctor
+        where doc_id in
+        <foreach item="id" collection="docIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </select>
 </mapper>
