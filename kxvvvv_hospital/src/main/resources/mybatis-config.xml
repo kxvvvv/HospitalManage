@@ -5,6 +5,7 @@
 <configuration>
     <properties resource="jdbc.properties"></properties>
     <settings>
+        <setting name="mapUnderscoreToCamelCase" value="True"/>
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
     <typeAliases>
@@ -24,7 +25,10 @@
     <mappers>
         <mapper resource="mapper/AdminMapper.xml"/>
         <mapper resource="mapper/DoctorMapper.xml"/>
+        <mapper resource="mapper/medRecordMapper.xml"/>
         <mapper resource="mapper/PatientMapper.xml"/>
+        <mapper resource="mapper/RegisteredMapper.xml"/>
+        <mapper resource="mapper/medRecord_DrugMapper.xml"/>
         <package name="mapper/sqlGenerator.java"/>
     </mappers>
 </configuration>

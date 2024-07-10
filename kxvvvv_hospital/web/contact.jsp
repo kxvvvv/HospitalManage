@@ -29,7 +29,7 @@
     <header class="header">
       <!-- Primary Navbar-->
       <nav class="navbar navbar-expand-lg navbar-light py-4 border-bottom border-gray bg-white">
-        <div class="container d-flex align-items-center justify-content-between"><a class="navbar-brand" href="index.html"><img src="img/logo.svg" alt="" width="100"></a>
+        <div class="container d-flex align-items-center justify-content-between"><a class="navbar-brand" href="index.jsp"><img src="img/logo.svg" alt="" width="100"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <ul class="list-inline mb-0 d-none d-lg-block">
             <li class="list-inline-item me-3">
@@ -57,7 +57,7 @@
           <div class="collapse navbar-collapse py-3 py-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                    <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="index.html">主页</a>
+                    <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="index.jsp">主页</a>
               </li>
               <li class="nav-item">
                     <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="about.html">关于我们</a>
@@ -99,7 +99,7 @@
             <!-- Breadcrumb-->
             <nav class="d-inline-block" aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html"> <i class="fa fa-home me-2"></i>Home</a></li>
+                <li class="breadcrumb-item"><a href="index.jsp"> <i class="fa fa-home me-2"></i>Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Contact us</li>
               </ol>
             </nav>
@@ -143,11 +143,10 @@
                 <form class="make-appointment-form" action="/registered" method="post">
                   <div class="row gy-4">
                     <%
-
                       String patientName =(session.getAttribute("patName")==null)? "":(String) session.getAttribute("patName");
                     %>
                     <div class="col-lg-6">
-                      <input class="form-control" type="text" name="firstName"
+                      <input class="form-control" type="text" name="patName"
                              placeholder="姓名" value="<%= patientName %>">
                     </div>
 
@@ -168,18 +167,41 @@
 
                     <div class="col-lg-6">
                       <input class="form-control" type="text" name="date" id="datePicker" placeholder="预约日期">
+                      <!-- 隐藏的input元素，用于存储日期选择器的值 -->
+                      <input type="hidden" name="appointmentDate" id="appointmentDateHidden" value="">
                     </div>
 
                     <script>
                       $(document).ready(function(){
                         var dateInput = $('#datePicker');
+                        var hiddenInput = $('#appointmentDateHidden');
+
+                        // 初始化时同步隐藏 input 的值
+                        hiddenInput.val(dateInput.val());
+
                         dateInput.datepicker({
                           todayBtn: "linked",
                           autoclose: true,
-                          todayHighlight: true
-                        }).on('changeDate', function() {
-                          dateInput.datepicker('hide');
-                        });
+                          todayHighlight: true,
+                          format: "yyyy-mm-dd",
+                          language: "zh-CN",
+                          clearBtn: true
+                        })
+                                .on('show', function(e) {
+                                  hiddenInput.val(dateInput.val());
+                                })
+                                .on('hide', function(e) {
+                                  hiddenInput.val(dateInput.val());
+                                })
+                                .on('changeDate', function(e) {
+                                  // 日期改变时更新隐藏的 input 元素的值
+                                  var date = e.date;
+                                  var formattedDate = new Date(date).toISOString().slice(0, 10);
+                                  hiddenInput.val(formattedDate);
+                                });
+
+                        // 如果需要，可以在页面加载时设置默认日期
+                        // hiddenInput.val('默认日期值');
                       });
                     </script>
                     <div class="col-lg-6">
@@ -190,15 +212,14 @@
                     </div>
                     <div class="col-lg-6">
                       <select id="RegisteredDoctor" class="form-select" name="RegisteredDoctor">
-                        <!-- 选项将通过AJAX动态插入 -->
                       </select>
                     </div>
 
                     <script>
                       $(document).ready(function() {
-                        try {
+
                           $.ajax({
-                            url: '/showData', // 你的Servlet URL
+                            url: '/showData',
                             type: 'GET',
                             dataType: 'json',
                             success: function(doctors) {
@@ -206,8 +227,9 @@
                               $('#RegisteredDoctor').empty();
                               // 遍历医生数据并添加到select元素
                               $.each(doctors, function(index, doctor) {
+                                console.log(doctor.name+" id:"+doctor.docId+"++")
                                 $('#RegisteredDoctor').append(
-                                        $('<option></option>').val(doctor.id).text(doctor.name)
+                                        $('<option></option>').val(doctor.docId).text(doctor.name),
                                 );
                               });
                             },
@@ -215,14 +237,11 @@
                               alert('Error loading doctors information');
                             }
                           });
-                        } catch (error) {
-                          console.error('AJAX请求异常:', error);
-                        }
+
                       });
                     </script>
-                    <div class="col-lg-12">
-                      <textarea class="form-control" name="sepcialRequest" rows="5" placeholder="Special Request"></textarea>
-                    </div>
+
+
                     <div class="col-lg-12">
                       <button class="btn btn-primary w-100" type="submit">Submit your request</button>
                     </div>
@@ -301,7 +320,7 @@
                 <li class="mb-2"><a class="footer-link" href="#!">Contact us</a></li>
               </ul>
               <ul class="list-unstyled d-inline-block mb-0">
-                <li class="mb-2"><a class="footer-link" href="index.html">Home </a></li>
+                <li class="mb-2"><a class="footer-link" href="index.jsp">Home </a></li>
                 <li class="mb-2"><a class="footer-link" href="about.html">About us </a></li>
                 <li class="mb-2"><a class="footer-link" href="contact.html">Contact us </a></li>
                 <li class="mb-2"><a class="footer-link" href="#">About our clinic </a></li>

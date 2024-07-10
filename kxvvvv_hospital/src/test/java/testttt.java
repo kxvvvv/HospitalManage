@@ -91,34 +91,34 @@ public class testttt {
                 0, // people_before
                 1 // timeframe
         );
-        mapper.insertRegistration(registration);
+//        mapper.insertRegistration(registration);
         sqlSession.commit();
         int count = mapper.countRegister(1, LocalDate.now(), 1);
         System.out.println("挂号成功数量: " + count);
         sqlSession.close();
     }
 
-    @Test
-    public void test7() {
-        SqlSession sqlSession = MyBatisUtil.getSqlSession();
-        RegisteredMapper mapper = sqlSession.getMapper(RegisteredMapper.class);
-
-        int registration_id = 1; // 假设存在registration_id为1的记录
-
-        mapper.changeStatusByDoctor1(registration_id);
-        sqlSession.commit();
-        sqlSession.close();
-    }
-
-    @Test
-    public void test8() {
-        SqlSession sqlSession = MyBatisUtil.getSqlSession();
-        RegisteredMapper mapper = sqlSession.getMapper(RegisteredMapper.class);
-
-        int registration_id = 1; // 假设存在registration_id为1的记录
-
-        mapper.changeStatusByDoctor2(registration_id);
-        sqlSession.commit();
-        sqlSession.close();
-    }
+//    @Test
+//    public void test7() {
+//        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+//        RegisteredMapper mapper = sqlSession.getMapper(RegisteredMapper.class);
+//
+//        int registration_id = 1; // 假设存在registration_id为1的记录
+//
+//        mapper.changeStatusByDoctor1(registration_id);
+//        sqlSession.commit();
+//        sqlSession.close();
+//    }
+//
+//    @Test
+//    public void test8() {
+//        SqlSession sqlSession = MyBatisUtil.getSqlSession();
+//        RegisteredMapper mapper = sqlSession.getMapper(RegisteredMapper.class);
+//
+//        int registration_id = 1; // 假设存在registration_id为1的记录
+//
+//        mapper.changeStatusByDoctor2(registration_id);
+//        sqlSession.commit();
+//        sqlSession.close();
+//    }
 }

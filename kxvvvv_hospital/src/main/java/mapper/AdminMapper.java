@@ -1,7 +1,5 @@
 package mapper;
 
-import pojo.Admin;
-
 import java.util.Map;
 
 public interface AdminMapper {

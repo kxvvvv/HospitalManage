@@ -9,10 +9,15 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.60" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.15.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.15.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.15.2" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.10.1" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.21.9" />
           <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:8.0.33" />
           <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.1" />
           <element id="library" level="project" name="Maven: javax.servlet:jsp-api:2.0" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.4" />
           <element id="library" level="project" name="Maven: junit:junit:4.13.2" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
@@ -20,11 +25,6 @@
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.11" />
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.32" />
           <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.15.2" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.15.2" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.15.2" />
-          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
-          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.10.1" />
         </element>
       </element>
       <element id="dir-copy" path="$PROJECT_DIR$/kxvvvv_hospital/web" />

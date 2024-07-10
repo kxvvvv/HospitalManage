@@ -47,7 +47,6 @@ public class LoginServlet extends HttpServlet {
         System.out.println("+++++++++++testLogin="+role);
         System.out.println("+++++++++++identity="+identity);
 
-// 检查 role 是否为 null 或者未找到用户时的特定值（如 -1）
         if (role == null || role == -1) {
             String errorMessage = "账号或密码错误，请重新输入！";
             req.setAttribute("errorMessage", errorMessage);
@@ -65,25 +64,31 @@ public class LoginServlet extends HttpServlet {
         }
         //登录成功，跳转主页,存储session
         else {
-            Patient patient=new Patient();
-            patient=patientMapper.selectByAcc(inAcc);
+            req.getSession().setAttribute("role",role);
+            if("patient".equals(identity)){
+                Patient patient=new Patient();
+                patient=patientMapper.selectByAcc(inAcc);
 
-            String patientName = patient.getName(); // 假设patient对象已经获取到
-            req.getSession().setAttribute("patName", patient.getName()); // 存储到Session
-            req.getSession().setAttribute("patId", patient.getId());
-            req.getSession().setAttribute("patPhone", patient.getPhone());
-            req.getSession().setAttribute("patName", patient.getName());
+                String patientName = patient.getName(); // 假设patient对象已经获取到
+                req.getSession().setAttribute("patName", patient.getName()); // 存储到Session
+                req.getSession().setAttribute("patId", patient.getId());//身份证
+                req.getSession().setAttribute("patientId", patient.getPatient_id());//id
+                System.out.println("========patientId:"+patient.getPatient_id());
+                req.getSession().setAttribute("patPhone", patient.getPhone());
+                req.getSession().setAttribute("patName", patient.getName());
 //            System.out.println("++++++++Patient:"+patientJson);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.html");
-            if (dispatcher != null) {
-                try {
-                    dispatcher.forward(req, resp);
-                } catch (ServletException | IOException e) {
-                    e.printStackTrace();
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                if (dispatcher != null) {
+                    try {
+                        dispatcher.forward(req, resp);
+                    } catch (ServletException | IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
                 }
-            } else {
-                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
             }
+
         }
 
 

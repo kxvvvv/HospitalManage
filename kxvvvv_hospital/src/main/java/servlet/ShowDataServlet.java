@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import pojo.Doctor;
 import utils.MyBatisUtil;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,8 +27,10 @@ public class ShowDataServlet extends HttpServlet {
             PatientMapper patientMapper=sqlSession.getMapper(PatientMapper.class);
             List<Integer> docIds=doctorMapper.selectAllDoctorId();
             List<Doctor> doctors=doctorMapper.selectById(docIds);
+            System.out.println("++++++++doctors:"+doctors);
             Gson gson = new Gson(); // 使用Gson库来转换对象为JSON
             String jsonResponse = gson.toJson(doctors);
+            System.out.println("+++++++jsonDoctor:"+jsonResponse);
             resp.getWriter().write(jsonResponse);
         } finally {
             sqlSession.close();

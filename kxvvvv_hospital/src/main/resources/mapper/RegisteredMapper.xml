@@ -7,17 +7,17 @@
         SELECT COUNT(*) FROM registered WHERE doc_id=#{doc_id} AND appointment_date=#{appointment_date} AND timeframe=#{timeframe}
     </select>
 
-    <insert id="insertRegistration" parameterType="pojo.Registered">
-        INSERT INTO registered (doc_id, patient_id, fee, status, registration_time, appointment_date, people_before, timeframe)
-        VALUES (#{doc_id}, #{patient_id}, #{fee}, #{status}, #{registration_time}, #{appointment_date}, #{people_before}, #{timeframe})
+    <insert id="insertRegistration" parameterType="hashmap">
+        INSERT INTO registered (doc_id, patient_id, fee, registration_time, appointment_date, timeframe)
+        VALUES (#{doc_id}, #{patient_id}, #{fee}, #{registration_time}, #{appointment_date}, #{timeframe})
     </insert>
 
-    <update id="changeStatusByDoctor1">
-        UPDATE registered SET status = 1 WHERE registration_id = #{registration_id}
-    </update>
+<!--    <update id="changeStatusByDoctor1">-->
+<!--        UPDATE registered SET status = 1 WHERE registration_id = #{registration_id}-->
+<!--    </update>-->
 
-    <update id="changeStatusByDoctor2">
-        UPDATE registered SET status = 2 WHERE registration_id = #{registration_id}
-    </update>
+<!--    <update id="changeStatusByDoctor2">-->
+<!--        UPDATE registered SET status = 2 WHERE registration_id = #{registration_id}-->
+<!--    </update>-->
 
 </mapper>
