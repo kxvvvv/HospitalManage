@@ -61,6 +61,8 @@ public class LoginServlet extends HttpServlet {
             } else {
                 resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
             }
+        } else if (role==0) {//管理员登录
+
         }
         //登录成功，跳转主页,存储session
         else {

@@ -71,8 +71,11 @@
                                 <a class="dropdown-item" href="#!">个人信息</a>
                             </c:if>
 
+                            <a class="dropdown-item" href="#!">查询药品信息</a>
+                            <a class="dropdown-item" href="#!">Something else here</a>
                             <a class="dropdown-item" href="#!">Something else here</a>
                         </div>
+
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -98,7 +101,7 @@
     <div class="container z-index-20 py-5 mb-5">
         <div class="row text-white">
             <div class="col-lg-8">
-                <h1 class="text-uppercase mb-0 text-shadow">Medicio medical group</h1>
+                <h1 class="text-uppercase mb-0 text-shadow">House of Eternity</h1>
                 <p class="h5 my-4 text-shadow">Provide best quality healthcare for you</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p><a class="btn btn-light text-primary px-5" href="about.html">View details</a>
             </div>
@@ -140,7 +143,7 @@
 <!-- About Section-->
 <section class="about bg-light pt-0">
     <div class="container text-center">
-        <h2 class="text-uppercase lined lined-center">Welcome to <span class="text-primary">Medicio </span>Clinic</h2>
+        <h2 class="text-uppercase lined lined-center">Welcome to <span class="text-primary">Eternity </span>Clinic</h2>
         <p class="text-muted">Nulla tristique ipsum in quam. Integer ac elit. Duis turpis faucibus non</p>
         <div class="row pt-5 gy-4 gx-5">
             <div class="col-lg-4"><i class="fas fa-3x text-primary mb-3 fa-stethoscope"></i>
