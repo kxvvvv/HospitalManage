@@ -23,4 +23,8 @@ public interface DrugMapper {
 
     // 显示所有药品
     List<Drug> selectAllDrugs();
+
+//    Drug selectDrugByPatientId(int patientId);
+    // 根据drug_name查询药品
+    Drug selectDrugByName(Integer drugName);
 }

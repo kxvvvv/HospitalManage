@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Medicio | Bootstrap Medical Template</title>
+    <title>联系我们</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -57,13 +57,13 @@
           <div class="collapse navbar-collapse py-3 py-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <!-- Link--><a class="nav-link text-uppercase letter-spacing-0 active" href="index.jsp">主页</a>
+                <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="index.jsp">主页</a>
               </li>
               <li class="nav-item">
                 <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="about.html">关于我们</a>
               </li>
               <li class="nav-item">
-                <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="contact.jsp">联系我们</a>
+                <!-- Link--><a class="nav-link text-uppercase letter-spacing-0 active" href="contact.jsp">联系我们</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link text-uppercase letter-spacing-0 dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多</a>
@@ -77,7 +77,9 @@
                   <c:if test="${sessionScope.role == 1}">
                     <a class="dropdown-item" href="treatment.jsp">诊断</a>
                   </c:if>
+                  <a class="dropdown-item" href="drug.jsp">药品信息</a>
                   <a class="dropdown-item" href="#!">Something else here</a>
+
                 </div>
               </li>
             </ul>

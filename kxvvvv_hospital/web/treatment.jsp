@@ -71,7 +71,9 @@
                             <c:if test="${sessionScope.role == 1}">
                                 <a class="dropdown-item" href="treatment.jsp">诊断</a>
                             </c:if>
+                            <a class="dropdown-item" href="drug.jsp">药品信息</a>
                             <a class="dropdown-item" href="#!">Something else here</a>
+
                         </div>
                     </li>
                 </ul>

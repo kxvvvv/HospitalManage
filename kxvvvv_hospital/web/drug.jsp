@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Medicio | Bootstrap Medical Template</title>
+    <title>药品信息</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -19,6 +19,10 @@
     <link rel="stylesheet" href="css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
 </head>
 <body>
 <!-- navbar-->
@@ -73,7 +77,9 @@
                             <c:if test="${sessionScope.role == 1}">
                                 <a class="dropdown-item" href="treatment.jsp">诊断</a>
                             </c:if>
+                            <a class="dropdown-item" href="drug.jsp">药品信息</a>
                             <a class="dropdown-item" href="#!">Something else here</a>
+
                         </div>
                     </li>
                 </ul>
@@ -108,13 +114,13 @@
                         <tr>
                             <th>id</th>
                             <th>药品名称</th>
-                            <th>药品价格</th>
+                            <th>药品价格/元</th>
                             <th>有效期</th>
                             <th>库存数量</th>
                             <th>详细描述</th>
                         </tr>
                         </thead>
-                        <tbody name="drugBody">
+                        <tbody name="drugBody" id="drugBody">
 
                         <tr>
                             <td>1</td>
@@ -124,6 +130,7 @@
                             <td>50</td>
                             <td></td>
                         </tr>
+
                         <script>
                             $(document).ready(function() {
 
@@ -131,26 +138,42 @@
                                     url: '/drug',
                                     type: 'GET',
                                     dataType: 'json',
-                                    success: function(doctors) {
+                                    success: function(drugs) {
+                                        console.log(drugs)
                                         // 清空select元素
                                         $('#drugBody').empty();
-                                        // 遍历医生数据并添加到select元素
+                                        // 遍历药品数据并添加到select元素
                                         $.each(drugs, function(index, drug) {
-                                            console.log(drug.drug_name+" id:"+doctor.drug_id+"++")
+                                            console.log("ajaxDrugName:"+drug.drugName+"++")
+                                            console.dir(drug)
+
                                             var row = '<tr>' +
-                                                '<td>' + drug.drug_id + '</td>' +
-                                                '<td>' + drug.drug_name + '</td>' +
-                                                '<td>' + drug.drug_price + '</td>' + // 假设药品价格字段为 price
-                                                '<td>' + drug.expiration_date + '</td>' + // 假设有效期字段为 expire_date
-                                                '<td>' + drug.stock_quantity + '</td>' + // 假设库存数量字段为 stock_quantity
-                                                '<td><button className="btn btn-sm btn-info" type="button" data-drug-id="' + drug.id + '">查看详情</button></td>' + // 详细描述按钮
+                                                '<td>' + drug.drugId + '</td>' +
+                                                '<td>' + drug.drugName + '</td>' +
+                                                '<td>' + drug.drugPrice + '</td>' + // 假设药品价格字段为 price
+                                                '<td>' + drug.expirationDate + '</td>' + // 假设有效期字段为 expire_date
+                                                '<td>' + drug.stockQuantity + '</td>' + // 假设库存数量字段为 stock_quantity
+                                                '<td><button class="btn btn-sm btn-info view-detail" type="button" data-drug-id="' + drug.drugId + '">查看详情</button></td>' + // 详细描述按钮
                                                 '</tr>';
+
                                             // 将构建的行添加到表格中
                                             $('#drugBody').append(row);
                                         });
+                                        $('#drugBody').on('click', '.view-detail', function() {
+                                            var drugId = $(this).data('drug-id'); // 获取 data-drug-id 属性
+                                            // 假设您想要 alert 出按钮对应的 drug 对象的某个属性，例如 func
+                                            var selectedDrug = $.grep(drugs, function(drug) {
+                                                return drug.drugId === parseInt(drugId);
+                                            })[0];
+                                            if (selectedDrug) {
+                                                alert('药品' + selectedDrug.drugName + ' 的详细信息是: ' + selectedDrug.function);
+                                            } else {
+                                                alert(drugId+'未找到药品信息');
+                                            }
+                                        });
                                     },
                                     error: function() {
-                                        alert('Error loading doctors information');
+                                        alert('Error loading drugs information');
                                     }
                                 });
 
@@ -158,27 +181,7 @@
                         </script>
                         </tbody>
                     </table>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Tables</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="table-active">
-                            <td>1</td>
-                            <td>Michael</td>
-                            <td>This one is bordered and condensed</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Lucille</td>
-                            <td>Do you still like it?</td>
-                        </tr>
-                        </tbody>
-                    </table>
+
                 </div>
             </div>
         </div>

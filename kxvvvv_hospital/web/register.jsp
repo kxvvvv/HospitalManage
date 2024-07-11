@@ -53,7 +53,7 @@
             <div class="collapse navbar-collapse py-3 py-lg-0" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <!-- Link--><a class="nav-link text-uppercase letter-spacing-0 active" href="index.jsp">主页</a>
+                        <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="index.jsp">主页</a>
                     </li>
                     <li class="nav-item">
                         <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="about.html">关于我们</a>
@@ -62,7 +62,7 @@
                         <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="contact.jsp">联系我们</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link text-uppercase letter-spacing-0 dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多</a>
+                        <a class="nav-link text-uppercase letter-spacing-0 dropdown-toggle active" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多</a>
                         <div class="dropdown-menu border-0 border-top border-2 border-primary shadow-sm mt-0" aria-labelledby="navbarDropdown">
                             <c:if test="${sessionScope.role == -1 or sessionScope.role == null}">
                                 <a class="dropdown-item" href="login.jsp">登录</a>
@@ -73,7 +73,9 @@
                             <c:if test="${sessionScope.role == 1}">
                                 <a class="dropdown-item" href="treatment.jsp">诊断</a>
                             </c:if>
+                            <a class="dropdown-item" href="drug.jsp">药品信息</a>
                             <a class="dropdown-item" href="#!">Something else here</a>
+
                         </div>
                     </li>
                 </ul>
