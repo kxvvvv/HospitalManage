@@ -7,7 +7,7 @@
     <!-- 插入药品 -->
     <insert id="insertDrug" parameterType="pojo.Drug">
         INSERT INTO drug (drug_name, `function`, drug_price, inbound_date, expiration_date, stock_quantity)
-        VALUES (#{drug_name}, #{function}, #{drug_price}, #{inbound_date}, #{expiration_date}, #{stock_quantity})
+        VALUES (#{drugName}, #{function}, #{drugPrice}, #{inboundDate}, #{expirationDate}, #{stockQuantity})
     </insert>
 
     <!-- 删除药品 -->
@@ -21,7 +21,7 @@
     </update>
 
     <!-- 减少药品数量 -->
-    <update id="decreaseStockQuantity" parameterType="map">
+    <update id="decreaseStockQuantity">
         UPDATE drug SET stock_quantity = stock_quantity - #{quantity} WHERE drug_id = #{drugId}
     </update>
 
@@ -29,18 +29,9 @@
     <select id="selectDrugById" resultType="pojo.Drug">
         SELECT * FROM drug WHERE drug_id = #{drugId}
     </select>
-    <!-- 根据drug_name查询药品 -->
-    <select id="selectDrugByName" resultType="pojo.Drug">
-        SELECT * FROM drug WHERE drug_name = #{drugName}
-    </select>
+
     <!-- 显示所有药品 -->
     <select id="selectAllDrugs" resultType="pojo.Drug">
-        SELECT *
-        FROM drug
+        SELECT * FROM drug
     </select>
-<!--    ///////////////////////////////////////显示当前病人所有药品-->
-<!--    <select id="selectDrugByPatientId" resultType="pojo.Drug" parameterType="String">-->
-<!--        select *-->
-<!--        from-->
-<!--    </select>-->
 </mapper>
