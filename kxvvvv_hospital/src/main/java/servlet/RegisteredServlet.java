@@ -76,6 +76,7 @@ public class RegisteredServlet extends HttpServlet {
             }
         }else {
         Integer peopleBefore=registeredMapper.countRegister(DoctorId,appointmentDate1,timeFrame);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
         if(peopleBefore>=2){//测试:一个时段一个医生最多两人
             System.out.println("当前时段人数过多");
             String errorMessage = "当前时段人数过多!";
@@ -101,6 +102,21 @@ public class RegisteredServlet extends HttpServlet {
             map.put("timeframe",timeFrame);
             System.out.println("------------一次挂号结束");
             int r=registeredMapper.insertRegistration(map);
+
+            RequestDispatcher dispatcher1 = getServletContext().getRequestDispatcher("/index.jsp");
+
+            if (dispatcher1 != null) {
+                try {
+                    System.out.println("跳转至index");
+                    dispatcher1.forward(req, resp);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("dispatcher1=null");
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
+            }
+            System.out.println("commit");
             sqlSession.commit();
         }
     }}

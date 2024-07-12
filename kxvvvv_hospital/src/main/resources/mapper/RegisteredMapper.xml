@@ -12,6 +12,12 @@
         VALUES (#{doc_id}, #{patient_id}, #{fee}, #{registration_time}, #{appointment_date}, #{timeframe})
     </insert>
 
+    <select id="selectRegisteredByDocId" resultType="pojo.Registered">
+        SELECT r.*,p.`name` as patient_name
+        FROM registered r,patient p
+        WHERE r.patient_id=p.patient_id and doc_id=#{docId}
+        ORDER BY appointment_date;
+    </select>
 <!--    <update id="changeStatusByDoctor1">-->
 <!--        UPDATE registered SET status = 1 WHERE registration_id = #{registration_id}-->
 <!--    </update>-->

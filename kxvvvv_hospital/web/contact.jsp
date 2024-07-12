@@ -236,6 +236,7 @@
                             url: '/showData',
                             type: 'GET',
                             dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
                             success: function(doctors) {
                               // 清空select元素
                               $('#RegisteredDoctor').empty();

@@ -1,12 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="pojo.Patient" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %><html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>药品信息</title>
+    <title>Medicio | Bootstrap Medical Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -19,10 +17,6 @@
     <link rel="stylesheet" href="css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
 </head>
 <body>
 <!-- navbar-->
@@ -102,92 +96,69 @@
     </div>
 </header>
 <div class="container py-5">
-
+    <h1>治疗方案</h1>
+    <p>This is a sample content.</p>
     <div class="row">
-        <div class="">
 
-            <div class="card mb-4" id="tables">
-                <div class="card-header">药品信息</div>
+        <div class="col-lg-8 align-middle">
+            <div class="card mb-4" id="content-formatting">
+                <div class="card-header">病例</div>
                 <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>挂号id</th>
-                            <th>病人名称</th>
-                            <th>挂号日期</th>
-                            <th>预约就诊日期</th>
-                            <th>上午/下午</th>
-                            <th>开病例</th>
-                        </tr>
-                        </thead>
-                        <tbody name="registeredBody" id="registeredBody">
-
-                        <tr>
-                            <td>1</td>
-                            <td>fumo</td>
-                            <td>45</td>
-                            <td>12年</td>
-                            <td>50</td>
-                            <td></td>
-                        </tr>
-
-                        <script>
-                            $(document).ready(function() {
-
-                                $.ajax({
-                                    url: '/treatment',
-                                    type: 'GET',
-                                    dataType: 'json',
-                                    contentType: "application/json; charset=utf-8",
-                                    success: function(registereds) {
-                                        console.log(registereds)
-                                        // 清空select元素
-                                        $('#registeredBody').empty();
-                                        // 遍历药品数据并添加到select元素
-                                        $.each(registereds, function(index, registered) {
-                                            console.log("ajaxRegedName:"+registered.registration_id+"++")
-                                            console.dir(registered)
-
-                                            var row = '<tr>' +
-                                                '<td>' + registered.registrationId + '</td>' +
-                                                '<td>' + registered.patientName + '</td>' +//病人名称
-                                                '<td>' + registered.registrationTime + '</td>' + // 假设药品价格字段为 price
-                                                '<td>' + registered.appointmentDate + '</td>' + // 假设有效期字段为 expire_date
-                                                '<td>' + registered.timeframe + '</td>' + // (registered.stockQuantity==0)?"上午":"下午"
-                                                '<td><button class="btn btn-sm btn-info treat" type="button" data-registered-id="' + registered.registrationId + '">诊断</button></td>' + // 详细描述按钮
-                                                '</tr>';
-
-                                            // 将构建的行添加到表格中
-                                            $('#registeredBody').append(row);
-                                        });
-                                        $('#registeredBody').on('click', '.treat', function() {
-                                            var registeredId = $(this).data('registered-id');
-                                            alert(registeredId)
-                                            // 构造新的URL，将registeredId作为查询参数
-                                            var newUrl = 'medRecord.jsp?registeredId=' + encodeURIComponent(registeredId);
-                                            // 跳转到新页面
-                                            window.location.href = newUrl;
-                                        });
-                                    },
-                                    error: function(jqXHR, textStatus, errorThrown) {
-                                        console.log('HTTP Status Code: ' + jqXHR.status);
-                                        console.log('Error Thrown: ' + errorThrown);
-                                        console.log('Status Text: ' + textStatus);
-                                        alert('Error loading registereds information');
-                                    }
-                                });
-
-                            });
-                        </script>
-                        </tbody>
-                    </table>
-
+                    <p class="lead">This is a lead paragraph.</p>
+                    <p>This is an <b>ordinary paragraph</b> that is <i>long enough</i> to wrap to
+                        <u>multiple lines</u> so that you can see how the line spacing looks.
+                    </p>
+                    <p class="text-muted">Muted color paragraph.</p>
+                    <p class="text-warning">Warning color paragraph.</p>
+                    <p class="text-danger">Danger color paragraph.</p>
+                    <p class="text-info">Info color paragraph.</p>
+                    <p class="text-primary">Primary color paragraph.</p>
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                            <li class="page-item"><a class="page-link" href="#!">1</a></li>
+                            <li class="page-item active"><span class="page-link">2<span class="visually-hidden">(current)</span></span></li>
+                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">Next</a></li>
+                        </ul>
+                    </nav>
+                    <p><small>This is text in a <code>small</code> wrapper. <abbr title="No Big Deal">NBD</abbr>, right?</small></p>
+                    <hr>
+                    <address><strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br><abbr title="Phone">P:</abbr> (123) 456-7890</address>
+                    <address class="col-6"><strong>Full Name</strong><br><a href="mailto:#">first.last@example.com</a></address>
+                    <hr>
+                    <blockquote>Here's what a blockquote looks like in Bootstrap.<small>Use <code>small</code> to identify the source.</small></blockquote>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <ul>
+                                <li>Normal Unordered List</li>
+                                <li>Can Also Work
+                                    <ul>
+                                        <li>With Nested Children</li>
+                                    </ul>
+                                </li>
+                                <li>Adds Bullets to Page</li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-6">
+                            <ol>
+                                <li>Normal Ordered List</li>
+                                <li>Can Also Work
+                                    <ol>
+                                        <li>With Nested Children</li>
+                                    </ol>
+                                </li>
+                                <li>Adds Bullets to Page</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <hr>
+                    <pre>\nfunction preFormatting() {  // looks like this;  var something = somethingElse;  return true;}                        </pre>
                 </div>
             </div>
         </div>
     </div>
-
-
 
 </div>
 <footer class="footer pt-5">
