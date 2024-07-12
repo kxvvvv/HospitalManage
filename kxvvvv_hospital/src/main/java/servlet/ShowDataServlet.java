@@ -20,7 +20,8 @@ import java.util.List;
 public class ShowDataServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json"); // 设置响应内容类型为JSON
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json; charset=utf-8");
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         try {
             DoctorMapper doctorMapper = sqlSession.getMapper(DoctorMapper.class);

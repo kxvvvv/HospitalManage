@@ -1,8 +1,10 @@
 package mapper;
 import org.apache.ibatis.annotations.Param;
 import pojo.Registered;
+import pojo.medRecord;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public interface RegisteredMapper {
@@ -12,6 +14,8 @@ public interface RegisteredMapper {
 
     int countRegister(@Param("doc_id") Integer doc_id, @Param("appointment_date") LocalDate appointment_date, @Param("timeframe") Integer timeframe);
     int insertRegistration(Map<String ,Object> map);
+    List<Registered> selectRegisteredByDocId(Integer docId);
+
 //    void changeStatusByDoctor1(Integer registration_id);
 //    void changeStatusByDoctor2(Integer registration_id);
 }
