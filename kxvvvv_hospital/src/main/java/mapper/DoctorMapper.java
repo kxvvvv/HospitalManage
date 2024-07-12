@@ -13,4 +13,12 @@ public interface DoctorMapper {
 
     Doctor selectByAcc(String acc);//根据账号返回医生
 
+    // 显示所有药品
+    List<Doctor> selectAllDoctors();
+
+    // 插入医生
+    int insertDoctor(Doctor doctor);
+
+    int deleteDoctorById(Integer docId);
+
 }
