@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>register</title>
+    <title>Eternity | register</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -56,7 +56,7 @@
                         <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="index.jsp">主页</a>
                     </li>
                     <li class="nav-item">
-                        <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="about.html">关于我们</a>
+                        <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="about.jsp">关于我们</a>
                     </li>
                     <li class="nav-item">
                         <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="contact.jsp">联系我们</a>
@@ -71,7 +71,16 @@
                                 <a class="dropdown-item" href="login.jsp">切换账号</a>
                             </c:if>
                             <c:if test="${sessionScope.role == 1}">
+                                <%--                                医生--%>
                                 <a class="dropdown-item" href="treatment.jsp">诊断</a>
+                            </c:if>
+                            <c:if test="${sessionScope.role == 0}">
+                                <%--                                管理员--%>
+                                <a class="dropdown-item" href="showdrug.jsp">药品管理</a>
+                            </c:if>
+                            <c:if test="${sessionScope.role == 0}">
+                                <%--                                管理员--%>
+                                <a class="dropdown-item" href="showdoctor.jsp">医生管理</a>
                             </c:if>
                             <a class="dropdown-item" href="drug.jsp">药品信息</a>
                             <a class="dropdown-item" href="#!">Something else here</a>
@@ -171,7 +180,7 @@
                     </ul>
                     <ul class="list-unstyled d-inline-block mb-0">
                         <li class="mb-2"><a class="footer-link" href="index.jsp">Home </a></li>
-                        <li class="mb-2"><a class="footer-link" href="about.html">About us </a></li>
+                        <li class="mb-2"><a class="footer-link" href="about.jsp">About us </a></li>
                         <li class="mb-2"><a class="footer-link" href="contact.jsp">Contact us </a></li>
                         <li class="mb-2"><a class="footer-link" href="#">About our clinic </a></li>
                         <li class="mb-2"><a class="footer-link" href="#">Contact us </a></li>

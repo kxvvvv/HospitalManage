@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Medicio | Bootstrap Medical Template</title>
+    <title>Eternity | 主页</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -56,7 +56,7 @@
                         <!-- Link--><a class="nav-link text-uppercase letter-spacing-0 active" href="index.jsp">主页</a>
                     </li>
                     <li class="nav-item">
-                        <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="about.html">关于我们</a>
+                        <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="about.jsp">关于我们</a>
                     </li>
                     <li class="nav-item">
                         <!-- Link--><a class="nav-link text-uppercase letter-spacing-0" href="contact.jsp">联系我们</a>
@@ -111,9 +111,9 @@
     <div class="container z-index-20 py-5 mb-5">
         <div class="row text-white">
             <div class="col-lg-8">
-                <h1 class="text-uppercase mb-0 text-shadow">Medicio medical group</h1>
+                <h1 class="text-uppercase mb-0 text-shadow">Eternity medical group</h1>
                 <p class="h5 my-4 text-shadow">Provide best quality healthcare for you</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p><a class="btn btn-light text-primary px-5" href="about.html">View details</a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p><a class="btn btn-light text-primary px-5" href="about.jsp">View details</a>
             </div>
         </div>
     </div>
@@ -153,7 +153,7 @@
 <!-- About Section-->
 <section class="about bg-light pt-0">
     <div class="container text-center">
-        <h2 class="text-uppercase lined lined-center">Welcome to <span class="text-primary">Medicio </span>Clinic</h2>
+        <h2 class="text-uppercase lined lined-center">Welcome to <span class="text-primary">Eternity </span>Clinic</h2>
         <p class="text-muted">Nulla tristique ipsum in quam. Integer ac elit. Duis turpis faucibus non</p>
         <div class="row pt-5 gy-4 gx-5">
             <div class="col-lg-4"><i class="fas fa-3x text-primary mb-3 fa-stethoscope"></i>
@@ -653,7 +653,7 @@
                     </ul>
                     <ul class="list-unstyled d-inline-block mb-0">
                         <li class="mb-2"><a class="footer-link" href="index.jsp">Home </a></li>
-                        <li class="mb-2"><a class="footer-link" href="about.html">About us </a></li>
+                        <li class="mb-2"><a class="footer-link" href="about.jsp">About us </a></li>
                         <li class="mb-2"><a class="footer-link" href="contact.jsp">Contact us </a></li>
                         <li class="mb-2"><a class="footer-link" href="#">About our clinic </a></li>
                         <li class="mb-2"><a class="footer-link" href="#">Contact us </a></li>
