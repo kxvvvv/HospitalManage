@@ -190,16 +190,13 @@
             $.ajax({
                 url: '/showdoctor?action=' + action,
                 type: 'POST',
-                data: {
-                    docId: docId
-                },
-                contentType: "application/json; charset=utf-8",
+                data: { docId: docId },
                 success: function(response) {
-                    alert('成功');
+                    alert('删除成功');
                     window.location.reload(); // 重新加载当前页面
                 },
-                error: function() {
-                    alert('Error deleting doctor');
+                error: function(xhr, status, error) {
+                    alert('Error deleting doctor'+docId);
                 }
             });
         }

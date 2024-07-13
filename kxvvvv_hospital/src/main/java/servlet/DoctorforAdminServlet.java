@@ -42,6 +42,9 @@ public class DoctorforAdminServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         try {
             DoctorMapper doctorMapper = sqlSession.getMapper(DoctorMapper.class);
@@ -51,18 +54,19 @@ public class DoctorforAdminServlet extends HttpServlet {
             req.setCharacterEncoding("UTF-8");
             resp.setCharacterEncoding("UTF-8");
             resp.setContentType("application/json; charset=utf-8");
-            String docId = req.getParameter("docId");
+            int docId=Integer.parseInt(req.getParameter("docId"));
 
-            System.out.println(docId);
+
+            System.out.println("--------docId"+docId);
             Integer docId1 = null;
-            docId1 = Integer.parseInt(docId); // 解析docId
+//            docId1 = Integer.parseInt(docId); // 解析docId
             Gson gson = new Gson();
-            System.out.println(docId1);
+//            System.out.println("--------docId1"+docId1);
 
             String jsonResponse;
             switch (action) {
                 case "delete":
-                    doctorMapper.deleteDoctorById(docId1); // 不需要quantity参数
+                    doctorMapper.deleteDoctorById(docId); // 不需要quantity参数
                     jsonResponse = gson.toJson("Doctor deleted successfully");
                     resp.getWriter().write(jsonResponse);
                     break;

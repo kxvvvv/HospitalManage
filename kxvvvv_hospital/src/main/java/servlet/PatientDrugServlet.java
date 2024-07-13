@@ -26,6 +26,9 @@ public class PatientDrugServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
         //在患者看病历时出现查看开的药品的按钮，按下后运行这个，出现药品
         //先根据病历号查到药品号
         //再根据查到的药品号查药品

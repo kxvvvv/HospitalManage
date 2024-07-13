@@ -36,9 +36,9 @@
             <label for="docAcc" class="form-label">Account</label>
             <input type="text" class="form-control" id="docAcc" name="docAcc" required>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" hidden="hidden">
             <label for="role" class="form-label">Role</label>
-            <input type="text" class="form-control" id="role" name="role" required>
+            <input type="text" class="form-control" id="role" name="role" value="1" >
         </div>
         <div class="mb-3">
             <label for="sectionId" class="form-label">Section ID</label>
