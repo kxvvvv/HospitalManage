@@ -119,8 +119,20 @@ public class RegisteredServlet extends HttpServlet {
                 System.out.println("dispatcher1=null");
                 resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
             }
-            System.out.println("commit");
+            System.out.println("========REGISTEREDcommit");
             sqlSession.commit();
         }
     }}
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        SqlSession sqlSession= MyBatisUtil.getSqlSession();
+        RegisteredMapper registeredMapper=sqlSession.getMapper(RegisteredMapper.class);
+        int regId=Integer.parseInt(req.getParameter("registrationId"));
+        registeredMapper.changeStatusByDoctor1(regId);
+        System.out.println("========已修改状态:"+regId);
+//        sqlSession.commit();
+    }
 }

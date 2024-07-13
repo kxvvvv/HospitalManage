@@ -16,6 +16,6 @@ public interface RegisteredMapper {
     int insertRegistration(Map<String ,Object> map);
     List<Registered> selectRegisteredByDocId(Integer docId);
 
-//    void changeStatusByDoctor1(Integer registration_id);
+    void changeStatusByDoctor1(Integer registration_id);
 //    void changeStatusByDoctor2(Integer registration_id);
 }

@@ -23,10 +23,10 @@ public class DoctorforAdminServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json; charset=utf-8");
         // 处理查询列表
-
-        resp.setContentType("application/json");
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         DoctorMapper doctorMapper = sqlSession.getMapper(DoctorMapper.class);
         try {
@@ -50,6 +50,7 @@ public class DoctorforAdminServlet extends HttpServlet {
 
             req.setCharacterEncoding("UTF-8");
             resp.setCharacterEncoding("UTF-8");
+            resp.setContentType("application/json; charset=utf-8");
             String docId = req.getParameter("docId");
 
             System.out.println(docId);

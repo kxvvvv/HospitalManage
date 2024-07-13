@@ -19,6 +19,7 @@ import java.util.List;
 public class DrugServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
@@ -27,7 +28,7 @@ public class DrugServlet extends HttpServlet {
         Integer role=(Integer) httpSession.getAttribute("role");
         ;
         try{
-            if(role==null||role==1){
+            if(role==null||role==1||role==0){
                 System.out.println("++++++++role:"+role);
                 List<Drug> drugs=drugMapper.selectAllDrugs();
                 System.out.println("++++++++drugs:"+drugs);

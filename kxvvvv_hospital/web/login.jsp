@@ -151,7 +151,7 @@
                 </label>
               </div>
               <div class="form-check disabled">
-                <input class="form-check-input" id="gridRadios3" type="radio" name="identity" value="admin" disabled>
+                <input class="form-check-input" id="gridRadios3" type="radio" name="identity" value="admin">
                 <label class="form-check-label" for="gridRadios3">
                   管理员
                 </label>

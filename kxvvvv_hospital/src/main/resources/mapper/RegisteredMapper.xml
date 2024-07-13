@@ -18,9 +18,9 @@
         WHERE r.patient_id=p.patient_id and doc_id=#{docId} and status !=1
         ORDER BY appointment_date;
     </select>
-<!--    <update id="changeStatusByDoctor1">-->
-<!--        UPDATE registered SET status = 1 WHERE registration_id = #{registration_id}-->
-<!--    </update>-->
+    <update id="changeStatusByDoctor1">
+        UPDATE registered SET status = 1 WHERE registration_id = #{registration_id}
+    </update>
 
 <!--    <update id="changeStatusByDoctor2">-->
 <!--        UPDATE registered SET status = 2 WHERE registration_id = #{registration_id}-->

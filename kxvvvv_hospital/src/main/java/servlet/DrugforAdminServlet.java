@@ -54,6 +54,7 @@ public class DrugforAdminServlet extends HttpServlet {
 
             req.setCharacterEncoding("UTF-8");
             resp.setCharacterEncoding("UTF-8");
+            resp.setContentType("application/json; charset=utf-8");
             String drugId = req.getParameter("drugId");
             String quantity;
 

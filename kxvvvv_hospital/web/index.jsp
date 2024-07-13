@@ -71,7 +71,16 @@
                                 <a class="dropdown-item" href="login.jsp">切换账号</a>
                             </c:if>
                             <c:if test="${sessionScope.role == 1}">
+<%--                                医生--%>
                                 <a class="dropdown-item" href="treatment.jsp">诊断</a>
+                            </c:if>
+                            <c:if test="${sessionScope.role == 0}">
+<%--                                管理员--%>
+                                <a class="dropdown-item" href="showdrug.jsp">药品管理</a>
+                            </c:if>
+                            <c:if test="${sessionScope.role == 0}">
+                                <%--                                管理员--%>
+                                <a class="dropdown-item" href="showdoctor.jsp">医生管理</a>
                             </c:if>
                             <a class="dropdown-item" href="drug.jsp">药品信息</a>
                             <a class="dropdown-item" href="#!">Something else here</a>

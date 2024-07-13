@@ -138,6 +138,7 @@
                                     url: '/drug',
                                     type: 'GET',
                                     dataType: 'json',
+                                    contentType: "application/json; charset=utf-8",
                                     success: function(drugs) {
                                         console.log(drugs)
                                         // 清空select元素

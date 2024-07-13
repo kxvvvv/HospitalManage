@@ -12,6 +12,55 @@ public class Drug {
     String function;//详细信息
     String drugPrice;
     String inboundDate; //入库时间
+
+    public Integer getDrugId() {
+        return drugId;
+    }
+
+    public void setDrugId(Integer drugId) {
+        this.drugId = drugId;
+    }
+
+    public String getDrugName() {
+        return drugName;
+    }
+
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
+    }
+
+    public String getDrugPrice() {
+        return drugPrice;
+    }
+
+    public void setDrugPrice(String drugPrice) {
+        this.drugPrice = drugPrice;
+    }
+
+    public String getInboundDate() {
+        return inboundDate;
+    }
+
+    public void setInboundDate(String inboundDate) {
+        this.inboundDate = inboundDate;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
     String expirationDate;//有效期
     int stockQuantity;//库存
 

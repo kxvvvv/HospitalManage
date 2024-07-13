@@ -15,6 +15,7 @@ public class AdddrugServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //防止中文乱码
+        req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
         try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
@@ -36,9 +37,11 @@ public class AdddrugServlet extends HttpServlet {
 
             drugMapper.insertDrug(drug);
 
+            resp.sendRedirect("/showdrug.jsp");
+
             sqlSession.commit();
 
-            resp.sendRedirect("showdrug.jsp");
+
         } catch (Exception e) {
             e.printStackTrace();
             // Handle exception, e.g., by showing an error page or message

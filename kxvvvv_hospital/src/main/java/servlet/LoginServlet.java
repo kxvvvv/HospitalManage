@@ -29,6 +29,8 @@ public class LoginServlet extends HttpServlet {
         SqlSession sqlSession= MyBatisUtil.getSqlSession();
         PatientMapper patientMapper=sqlSession.getMapper(PatientMapper.class);
         DoctorMapper doctorMapper=sqlSession.getMapper(DoctorMapper.class);
+        AdminMapper adminMapper=sqlSession.getMapper(AdminMapper.class);
+
         String inAcc=req.getParameter("inAcc");
         String inPwd=req.getParameter("inPwd");
         Map<String,Object> map=new HashMap<>();
@@ -99,12 +101,34 @@ public class LoginServlet extends HttpServlet {
                 Doctor doctor=new Doctor();
                 doctor=doctorMapper.selectByAcc(inAcc);
 
-                String doctorName = doctor.getName(); // 假设patient对象已经获取到
+                String doctorName = doctor.getName(); // 假设doctor对象已经获取到
 
                 req.getSession().setAttribute("doctorId", doctor.getDocId());//id
                 req.getSession().setAttribute("doctorName", doctor.getName());//name
 
                 System.out.println("========doctorId:"+doctor.getDocId());
+
+//            System.out.println("++++++++Patient:"+patientJson);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                if (dispatcher != null) {
+                    try {
+                        dispatcher.forward(req, resp);
+                    } catch (ServletException | IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error page not found");
+                }
+            }
+            if("admin".equals(identity)){
+                Admin admin=new Admin();
+                admin=adminMapper.selectByAcc(inAcc);
+
+                String adminName = "ADMIN"; // 假设patient对象已经获取到
+
+                req.getSession().setAttribute("adminId", admin.getAdminId());//id
+
+                System.out.println("========adminId:"+admin.getAdminId());
 
 //            System.out.println("++++++++Patient:"+patientJson);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");

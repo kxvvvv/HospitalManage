@@ -119,6 +119,7 @@
                             <th>预约就诊日期</th>
                             <th>上午/下午</th>
                             <th>开病例</th>
+                            <th>诊断结束</th>
                         </tr>
                         </thead>
                         <tbody name="registeredBody" id="registeredBody">
@@ -136,6 +137,7 @@
 
                                 $.ajax({
                                     url: '/treatment',
+
                                     type: 'GET',
                                     dataType: 'json',
                                     contentType: "application/json; charset=utf-8",
@@ -156,6 +158,8 @@
                                                 '<td>' + registered.appointmentDate + '</td>' + // 假设有效期字段为 expire_date
                                                 '<td>' + registered.timeframe + '</td>' + // (registered.stockQuantity==0)?"上午":"下午"
                                                 '<td><button class="btn btn-sm btn-info treat" type="button" data-registration-id="' + registered.regId + '" data-patient-name="' + registered.patientName + '"data-patient-id="' + registered.patientId + '"data-doc-id="' + registered.docId + '">诊断</button></td>' + // 详细描述按钮
+                                                '<td><button class="btn btn-sm btn-info delete" type="button" data-registration-id="' + registered.regId + '" data-patient-name="' + registered.patientName + '"data-patient-id="' + registered.patientId + '"data-doc-id="' + registered.docId + '">结束</button></td>' + // 详细描述按钮
+
                                                 '</tr>';
 
                                             // 将构建的行添加到表格中
@@ -168,19 +172,30 @@
                                             var patientId= $(this).data('patient-id');
                                             var docId= $(this).data('doc-id');
 
-                                            var $hiddenInput = $('<input>').attr({
-                                                type: 'hidden', // 设置为隐藏元素
-                                                name: 'registrationId', // 设置输入框的名称，这将作为表单数据发送
-                                                value: regId // 设置输入框的值
-                                            });
 
-                                            $('#hidd').append($hiddenInput);
                                             alert("regId"+regId+"patientId"+patientId)
                                             // alert(registeredId)
                                             // 构造新的URL，将registeredId作为查询参数
                                             var newUrl = 'medRecord.jsp?patientName=' + encodeURIComponent(patientName)+'&regId=' + encodeURIComponent(regId) + '&patientId=' + encodeURIComponent(patientId)+ '&docId=' + encodeURIComponent(docId);
+
                                             // 跳转到新页面
                                             window.location.href = newUrl;
+                                        });
+                                        $('.delete').on('click', function() {
+                                            var regId = $(this).data('registration-id');
+                                            $.ajax({
+                                                url: '/updateRegStatus1', // 确保与 Servlet 映射 URL 一致
+                                                type: 'POST',
+                                                data: { registrationId: regId }, // 发送 regId 作为参数
+                                                success: function(response) {
+                                                    console.log('状态更新成功');
+                                                    alert("已结束挂号:"+regId);
+                                                    window.location.reload();
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    console.error('状态更新失败：', error);
+                                                }
+                                            });
                                         });
 
 

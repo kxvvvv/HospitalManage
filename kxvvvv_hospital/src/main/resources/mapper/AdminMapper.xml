@@ -6,7 +6,12 @@
     <select id="adminLogin" parameterType="hashmap" resultType="int">
         SELECT admin_id
         FROM admin
-        WHERE admin = #{inAcc}
-          AND admin = #{inPwd};
+        WHERE admin_acc = #{adminAcc}
+          AND admin_pwd = #{adminPwd};
+    </select>
+    <select id="selectByAcc" parameterType="String" resultType="admin">
+        SELECT *
+        FROM admin
+        WHERE admin_acc=#{acc};
     </select>
 </mapper>
