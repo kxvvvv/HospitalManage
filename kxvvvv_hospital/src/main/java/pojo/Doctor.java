@@ -12,7 +12,5 @@ public class Doctor {
     String major;//主治专业
     String job;//职称
     String degree;//学历
-    Integer regFee;//挂号费用
-
 }
 

@@ -27,4 +27,20 @@
         FROM doctor
         WHERE doc_acc=#{acc};
     </select>
+
+    <!-- 显示所有医生 -->
+    <select id="selectAllDoctors" resultType="pojo.Doctor">
+        SELECT * FROM doctor
+    </select>
+
+    <!-- 插入医生 -->
+    <insert id="insertDoctor" parameterType="pojo.Doctor">
+        INSERT INTO doctor (name, `doc_pwd`, doc_acc, role, Section_id, phone,major,job,degree)
+        VALUES (#{name}, #{docPwd}, #{docAcc}, #{role}, #{sectionId},  #{phone}, #{major}, #{job},#{degree})
+    </insert>
+
+    <!-- 删除医生 -->
+    <delete id="deleteDoctorById" parameterType="int">
+        DELETE FROM doctor WHERE doc_id = #{docId}
+    </delete>
 </mapper>
