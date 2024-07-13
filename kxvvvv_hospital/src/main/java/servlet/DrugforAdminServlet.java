@@ -24,8 +24,9 @@ public class DrugforAdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //防止中文乱码
+        req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("application/json; charset=utf-8");
+        resp.setContentType("text/html;charset=UTF-8");
         // 处理查询药品列表和查询单个药品的请求
         resp.setContentType("application/json");
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
@@ -42,6 +43,9 @@ public class DrugforAdminServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
         SqlSession sqlSession = MyBatisUtil.getSqlSession();
         try {
             DrugMapper drugMapper = sqlSession.getMapper(DrugMapper.class);

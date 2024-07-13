@@ -39,7 +39,7 @@ public class Registered {
         }
     }
     // 挂号ID
-    Integer registrationId;
+    Integer regId;
 
     // 医生ID
     Integer docId;
@@ -70,7 +70,7 @@ public class Registered {
     }
 
     public Registered(Integer registration_id, Integer doc_id, Integer patient_id, String fee, Integer status, LocalDateTime registration_time, LocalDate appointment_date, Integer timeframe, String patient_name) {
-        this.registrationId = registration_id;
+        this.regId = registration_id;
         this.docId = doc_id;
         this.patientId = patient_id;
         this.patientName = patient_name;
@@ -83,11 +83,11 @@ public class Registered {
     }
 
     public Integer getRegistration_id() {
-        return registrationId;
+        return regId;
     }
 
     public void setRegistration_id(Integer registration_id) {
-        this.registrationId = registration_id;
+        this.regId = registration_id;
     }
 
     public Registered(Integer doc_id, LocalDate appointment_date, Integer timeframe) {

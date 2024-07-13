@@ -72,7 +72,7 @@
                                 <a class="dropdown-item" href="login.jsp">登录</a>
                             </c:if>
                             <c:if test="${sessionScope.role != -1 and sessionScope.role != null}">
-                                <a class="dropdown-item" href="#!">个人信息</a>
+                                <a class="dropdown-item" href="login.jsp">切换账号</a>
                             </c:if>
                             <c:if test="${sessionScope.role == 1}">
                                 <a class="dropdown-item" href="treatment.jsp">诊断</a>
@@ -109,6 +109,7 @@
             <div class="card mb-4" id="tables">
                 <div class="card-header">药品信息</div>
                 <div class="card-body">
+
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -130,7 +131,6 @@
                             <td>50</td>
                             <td></td>
                         </tr>
-
                         <script>
                             $(document).ready(function() {
 
@@ -140,34 +140,50 @@
                                     dataType: 'json',
                                     contentType: "application/json; charset=utf-8",
                                     success: function(registereds) {
+
                                         console.log(registereds)
                                         // 清空select元素
                                         $('#registeredBody').empty();
-                                        // 遍历药品数据并添加到select元素
                                         $.each(registereds, function(index, registered) {
-                                            console.log("ajaxRegedName:"+registered.registration_id+"++")
+                                            console.log("ajaxRegedName:"+registered.regId+"++")
+
                                             console.dir(registered)
 
                                             var row = '<tr>' +
-                                                '<td>' + registered.registrationId + '</td>' +
+                                                '<td>' + registered.regId + '</td>' +
                                                 '<td>' + registered.patientName + '</td>' +//病人名称
                                                 '<td>' + registered.registrationTime + '</td>' + // 假设药品价格字段为 price
                                                 '<td>' + registered.appointmentDate + '</td>' + // 假设有效期字段为 expire_date
                                                 '<td>' + registered.timeframe + '</td>' + // (registered.stockQuantity==0)?"上午":"下午"
-                                                '<td><button class="btn btn-sm btn-info treat" type="button" data-registered-id="' + registered.registrationId + '">诊断</button></td>' + // 详细描述按钮
+                                                '<td><button class="btn btn-sm btn-info treat" type="button" data-registration-id="' + registered.regId + '" data-patient-name="' + registered.patientName + '"data-patient-id="' + registered.patientId + '"data-doc-id="' + registered.docId + '">诊断</button></td>' + // 详细描述按钮
                                                 '</tr>';
 
                                             // 将构建的行添加到表格中
                                             $('#registeredBody').append(row);
+
                                         });
                                         $('#registeredBody').on('click', '.treat', function() {
-                                            var registeredId = $(this).data('registered-id');
-                                            alert(registeredId)
+                                            var regId = $(this).data('registration-id');
+                                            var patientName= $(this).data('patient-name');
+                                            var patientId= $(this).data('patient-id');
+                                            var docId= $(this).data('doc-id');
+
+                                            var $hiddenInput = $('<input>').attr({
+                                                type: 'hidden', // 设置为隐藏元素
+                                                name: 'registrationId', // 设置输入框的名称，这将作为表单数据发送
+                                                value: regId // 设置输入框的值
+                                            });
+
+                                            $('#hidd').append($hiddenInput);
+                                            alert("regId"+regId+"patientId"+patientId)
+                                            // alert(registeredId)
                                             // 构造新的URL，将registeredId作为查询参数
-                                            var newUrl = 'medRecord.jsp?registeredId=' + encodeURIComponent(registeredId);
+                                            var newUrl = 'medRecord.jsp?patientName=' + encodeURIComponent(patientName)+'&regId=' + encodeURIComponent(regId) + '&patientId=' + encodeURIComponent(patientId)+ '&docId=' + encodeURIComponent(docId);
                                             // 跳转到新页面
                                             window.location.href = newUrl;
                                         });
+
+
                                     },
                                     error: function(jqXHR, textStatus, errorThrown) {
                                         console.log('HTTP Status Code: ' + jqXHR.status);
@@ -185,6 +201,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="hidd">
+
     </div>
 
 

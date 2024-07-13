@@ -72,7 +72,7 @@
                     <a class="dropdown-item" href="login.jsp">登录</a>
                   </c:if>
                   <c:if test="${sessionScope.role != -1 and sessionScope.role != null}">
-                    <a class="dropdown-item" href="#!">个人信息</a>
+                    <a class="dropdown-item" href="login.jsp">切换账号</a>
                   </c:if>
                   <c:if test="${sessionScope.role == 1}">
                     <a class="dropdown-item" href="treatment.jsp">诊断</a>

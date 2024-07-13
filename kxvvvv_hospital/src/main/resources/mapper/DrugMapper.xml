@@ -34,4 +34,8 @@
     <select id="selectAllDrugs" resultType="pojo.Drug">
         SELECT * FROM drug
     </select>
+
+    <select id="searchDrugsByDrugName" resultType="Drug">
+        SELECT * FROM drug WHERE drug_name LIKE CONCAT('%', #{s}, '%')
+    </select>
 </mapper>

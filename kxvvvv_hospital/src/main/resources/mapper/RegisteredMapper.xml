@@ -8,14 +8,14 @@
     </select>
 
     <insert id="insertRegistration" parameterType="hashmap">
-        INSERT INTO registered (doc_id, patient_id, fee, registration_time, appointment_date, timeframe)
-        VALUES (#{doc_id}, #{patient_id}, #{fee}, #{registration_time}, #{appointment_date}, #{timeframe})
+        INSERT INTO registered (doc_id, patient_id, fee, registration_time, appointment_date, timeframe,status)
+        VALUES (#{doc_id}, #{patient_id}, #{fee}, #{registration_time}, #{appointment_date}, #{timeframe},0)
     </insert>
 
     <select id="selectRegisteredByDocId" resultType="pojo.Registered">
         SELECT r.*,p.`name` as patient_name
         FROM registered r,patient p
-        WHERE r.patient_id=p.patient_id and doc_id=#{docId}
+        WHERE r.patient_id=p.patient_id and doc_id=#{docId} and status !=1
         ORDER BY appointment_date;
     </select>
 <!--    <update id="changeStatusByDoctor1">-->

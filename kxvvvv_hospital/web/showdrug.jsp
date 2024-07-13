@@ -87,7 +87,7 @@
                                             var row = '<tr>' +
                                                 '<td>' + drug.drugId + '</td>' +
                                                 '<td>' + drug.drugName + '</td>' +
-                                                '<td>' + drug.function + '</td>' +
+                                                '<td class="modal-dialog-scrollable">' + drug.function + '</td>' +
                                                 '<td>' + drug.drugPrice + '</td>' +
                                                 '<td>' + drug.inboundDate + '</td>' +
                                                 '<td>' + drug.expirationDate + '</td>' +

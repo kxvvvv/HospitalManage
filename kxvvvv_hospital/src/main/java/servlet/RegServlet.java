@@ -17,6 +17,9 @@ import java.util.Map;
 public class RegServlet extends HttpServlet {
     @Override
     protected  void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
         SqlSession sqlSession= MyBatisUtil.getSqlSession();
         PatientMapper patientMapper=sqlSession.getMapper(PatientMapper.class);
         String regAcc=req.getParameter("regAcc");

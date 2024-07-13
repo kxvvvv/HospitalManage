@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="pojo.Patient" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %><html>
 <head>
     <meta charset="utf-8">
@@ -17,6 +19,13 @@
     <link rel="stylesheet" href="css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
+    <!-- 引入 jQuery UI CSS -->
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 <body>
 <!-- navbar-->
@@ -66,7 +75,7 @@
                                 <a class="dropdown-item" href="login.jsp">登录</a>
                             </c:if>
                             <c:if test="${sessionScope.role != -1 and sessionScope.role != null}">
-                                <a class="dropdown-item" href="#!">个人信息</a>
+                                <a class="dropdown-item" href="login.jsp">切换账号</a>
                             </c:if>
                             <c:if test="${sessionScope.role == 1}">
                                 <a class="dropdown-item" href="treatment.jsp">诊断</a>
@@ -96,38 +105,137 @@
     </div>
 </header>
 <div class="container py-5">
-    <h1>治疗方案</h1>
-    <p>This is a sample content.</p>
-    <div class="row">
+    <%
+        String registeredId = request.getParameter("registeredId");
+        String patientName=request.getParameter("patientName");
+        String patientId=request.getParameter("patientId");
+        String docId=request.getParameter("docId");
 
+    %>
+    <%
+        String doctorName = (String) session.getAttribute("doctorName");
+    %>
+
+    <%
+        Date now = new Date();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String dateNow = dateFormat.format(now);
+    %>
+    <h1>治疗方案</h1>
+    <p><%=patientName%>.</p>
+    <div class="row">
+    <form method="post" action="/treatment">
         <div class="col-lg-8 align-middle">
             <div class="card mb-4" id="content-formatting">
                 <div class="card-header">病例</div>
                 <div class="card-body">
-                    <p class="lead">This is a lead paragraph.</p>
-                    <p>This is an <b>ordinary paragraph</b> that is <i>long enough</i> to wrap to
-                        <u>multiple lines</u> so that you can see how the line spacing looks.
-                    </p>
-                    <p class="text-muted">Muted color paragraph.</p>
-                    <p class="text-warning">Warning color paragraph.</p>
-                    <p class="text-danger">Danger color paragraph.</p>
-                    <p class="text-info">Info color paragraph.</p>
-                    <p class="text-primary">Primary color paragraph.</p>
-                    <nav aria-label="...">
-                        <ul class="pagination">
-                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
-                            <li class="page-item"><a class="page-link" href="#!">1</a></li>
-                            <li class="page-item active"><span class="page-link">2<span class="visually-hidden">(current)</span></span></li>
-                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#!">Next</a></li>
-                        </ul>
-                    </nav>
-                    <p><small>This is text in a <code>small</code> wrapper. <abbr title="No Big Deal">NBD</abbr>, right?</small></p>
+                    <input type="hidden" name="patientId" id="appointmentDateHidden" value="<%=patientId%>">
+                    <input type="hidden" name="docId" id="appointmentDateHidden" value="<%=docId%>">
+
+                    <div class="col-lg-12">
+                        <textarea class="form-control" name="treatmentPlan" rows="5" placeholder="治疗方案"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-check">
+                                <input class="form-check-input" id="gridRadios1" type="radio" name="gender" value="男" checked>
+                                <label class="form-check-label" for="gridRadios1">
+                                    男
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-check">
+                                <input class="form-check-input" id="gridRadios2" type="radio" name="gender" value="女">
+                                <label class="form-check-label" for="gridRadios2">
+                                    女
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="exampleInputEmail1">年龄:</label>
+                        <input class="form-control" id="exampleInputEmail1" type="text" name="age"  value="" placeholder="年龄">
+                    </div>
+                    <hr><abbr title="Phone"><strong>诊断日期:</strong></abbr><%=dateNow%><br><hr>
+                    <address><strong>病人名称</strong><br> <%=patientName%></address>
+                    <address class="col-6"><strong>医生名称</strong><br><%=doctorName%></address>
                     <hr>
-                    <address><strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br><abbr title="Phone">P:</abbr> (123) 456-7890</address>
-                    <address class="col-6"><strong>Full Name</strong><br><a href="mailto:#">first.last@example.com</a></address>
-                    <hr>
-                    <blockquote>Here's what a blockquote looks like in Bootstrap.<small>Use <code>small</code> to identify the source.</small></blockquote>
+                    <div class="autocomplete-form">
+                        <input id="drugSearch" type="text" placeholder="搜索药品名称" class="form-control">
+                        <ul id="selectedDrugs"></ul>
+                    </div>
+                    <input type="hidden" id="selectedDrugsJson" name="selectedDrugsJson" />
+                    <script>
+                        var selectedDrugs = [];
+                        var $selectedDrugsList = $('#selectedDrugs');
+                        $(document).ready(function() {
+
+
+                            $('#drugSearch').autocomplete({
+                                minLength: 1, // 用户输入至少一个字符后才触发搜索
+                                source: function(request, response) {
+                                    $.ajax({
+                                        url: '/drugSearch',
+                                        dataType: "json",
+                                        data: {
+                                            term: request.term
+                                        },
+                                        contentType: "application/json; charset=utf-8",
+                                        success: function(data) {
+                                            response($.map(data, function(item) {
+                                                return {
+                                                    label: item.drugName,
+                                                    value: item.drugName,
+                                                    drugId:item.drugId
+                                                };
+                                            }));
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown) {
+                                            console.log(this.data);
+                                            console.log('HTTP Status Code: ' + jqXHR.status);
+                                            console.log('Error Thrown: ' + errorThrown);
+                                            console.log('Status Text: ' + textStatus);
+                                            alert('Error loading treatment information');
+                                        }
+                                    });
+                                },
+                                select: function(event, ui) {
+                                    if (selectedDrugs.indexOf(ui.item.drugId) === -1) { // 确保使用id进行比较
+                                        var drugid=ui.item.drugId
+                                        console.log(drugid)
+                                        selectedDrugs.push(drugid); // 添加drugId到数组
+                                        console.log("selectDrugs:"+selectedDrugs)
+                                        console.log("json:"+JSON.stringify(selectedDrugs))
+                                        var listItem = $('<li>').append(
+                                            $('<span>').text(ui.item.label), // 包裹药品名称
+                                            $('<button>').addClass('remove-drug').text('移除').data('drugName', ui.item.drugId) // 设置数据属性
+                                        );
+                                        console.log(listItem)
+                                        $selectedDrugsList.append(listItem);
+                                        $('#drugSearch').val('');
+                                    }
+                                },
+
+                            });
+
+                            $selectedDrugsList.on('click', '.remove-drug', function() {
+                                var removedDrug = $(this).data('drugName'); // 从数据属性获取药品名称
+                                var index = selectedDrugs.indexOf(removedDrug);
+                                if (index > -1) {
+                                    selectedDrugs.splice(index, 1);
+                                }
+                                console.log("selectedDrugs:", selectedDrugs);
+                                console.log("removedDrug:", removedDrug);
+                                console.log("index:", index);
+
+                                $(this).closest('li').remove(); // 找到最近的 <li> 父元素并删除它
+                            });
+                        });
+                    </script>
                     <hr>
                     <div class="row">
                         <div class="col-xs-6">
@@ -154,10 +262,22 @@
                         </div>
                     </div>
                     <hr>
-                    <pre>\nfunction preFormatting() {  // looks like this;  var something = somethingElse;  return true;}                        </pre>
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary w-100" type="submit">Submit your request</button>
+                    </div>
+                    <script>
+                        $('button[type="submit"]').click(function() {
+                            console.log(selectedDrugs)
+                            $('#selectedDrugsJson').val(JSON.stringify(selectedDrugs)); // 将selectedDrugs数组转换为JSON字符串
+                            alert("诊断结束")
+                        });
+                    </script>
                 </div>
             </div>
         </div>
+
+    </form>
+
     </div>
 
 </div>
@@ -211,7 +331,7 @@
     </div>
 </footer>
 <!-- JavaScript files-->
-<script src="vendor/jquery/jquery.min.js"></script>
+<%--<script src="vendor/jquery/jquery.min.js"></script>--%>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/front.js"></script>
 <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->

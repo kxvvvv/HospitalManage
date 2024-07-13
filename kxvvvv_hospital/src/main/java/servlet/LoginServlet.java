@@ -102,6 +102,8 @@ public class LoginServlet extends HttpServlet {
                 String doctorName = doctor.getName(); // 假设patient对象已经获取到
 
                 req.getSession().setAttribute("doctorId", doctor.getDocId());//id
+                req.getSession().setAttribute("doctorName", doctor.getName());//name
+
                 System.out.println("========doctorId:"+doctor.getDocId());
 
 //            System.out.println("++++++++Patient:"+patientJson);

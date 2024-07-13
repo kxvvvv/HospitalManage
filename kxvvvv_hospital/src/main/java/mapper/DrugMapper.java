@@ -23,4 +23,6 @@ public interface DrugMapper {
 
     // 显示所有药品
     List<Drug> selectAllDrugs();
+
+    List<Drug> searchDrugsByDrugName(String s);
 }
