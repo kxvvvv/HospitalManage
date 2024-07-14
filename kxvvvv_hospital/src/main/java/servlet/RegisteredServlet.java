@@ -133,6 +133,6 @@ public class RegisteredServlet extends HttpServlet {
         int regId=Integer.parseInt(req.getParameter("registrationId"));
         registeredMapper.changeStatusByDoctor1(regId);
         System.out.println("========已修改状态:"+regId);
-//        sqlSession.commit();
+        sqlSession.commit();
     }
 }

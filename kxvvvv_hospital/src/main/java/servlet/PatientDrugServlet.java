@@ -36,7 +36,7 @@ public class PatientDrugServlet extends HttpServlet {
         medRecord_DrugMapper medRecord_drugMapper = sqlSession.getMapper(medRecord_DrugMapper.class);
 
         //得到病历号
-        String medRecord = req.getParameter("medRecord_id");
+        String medRecord = req.getParameter("medId");
 
 
         List<medRecord_Drug> medRecordDrugs = medRecord_drugMapper.selectpatientdrugByMid(Integer.valueOf(medRecord));
@@ -56,7 +56,7 @@ public class PatientDrugServlet extends HttpServlet {
 
         req.setAttribute("drugs", drugs);
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/patientdrug.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/patientdrugs.jsp");
         dispatcher.forward(req, resp);
     }
 }

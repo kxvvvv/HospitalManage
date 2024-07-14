@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Eternity | 查看药品</title>
+    <title>Eternity | 查看病例</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -22,6 +22,7 @@
 </head>
 
 <body>
+<!-- navbar-->
 <header class="header">
     <!-- Primary Navbar-->
     <nav class="navbar navbar-expand-lg navbar-light py-4 border-bottom border-gray bg-white">
@@ -87,6 +88,7 @@
                                 <a class="dropdown-item" href="drug.jsp">药品信息</a>
                             </c:if>
 
+
                             <a class="dropdown-item" href="#!">Something else here</a>
 
                         </div>
@@ -110,29 +112,146 @@
         </div>
     </div>
 </header>
-<h1>药品列表</h1>
-<table border="1"> <!-- 您可以添加 CSS 类来美化表格 -->
-    <tr>
-        <th>ID</th>
-        <th>药品名称</th>
-        <th>效果</th>
-        <th>价格</th>
-        <th>入库信息</th>
-        <th>有效期</th>
-        <th>库存数量</th>
-    </tr>
-    <c:forEach items="${drugs}" var="drug">
-        <tr>
-            <td>${drug.drug_id}</td>
-            <td>${drug.drug_name}</td>
-            <td>${drug.function}</td>
-            <td>${drug.drug_price}</td>
-            <td>${drug.inbound_date}</td>
-            <td>${drug.expiration_date}</td>
-            <td>${drug.stock_quantity}</td>
-        </tr>
-    </c:forEach>
-</table>
+
+<div class="container py-5">
+    <h1>病例列表</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    病例
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover" id="drugTable">
+                        <thead>
+                        <tr>
+                            <th>病例ID</th>
+                            <th>治疗方案</th>
+                            <th>诊断时间</th>
+                            <th>查看药品</th>
+                        </tr>
+                        </thead>
+                        <tbody id="drugBody">
+                        <!-- 药品数据将通过AJAX请求动态插入 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function() {
+        // 使用AJAX获取药品数据
+        $.ajax({
+            url: '/patientdrug',
+            type: 'POST',
+            dataType: 'json',
+            success: function(drugs) {
+                // 清空tbody元素
+                $('#drugBody').empty();
+                // 遍历药品数据并添加到表格
+                $.each(drugs, function(index, medRecord) {
+                    var row = '<tr>' +
+                        '<td>' + medRecord.medical_record_id + '</td>' +
+                        '<td class="modal-dialog-scrollable">' + medRecord.treatment_plan + '</td>' +
+                        '<td>' + medRecord.create_time + '</td>' +
+
+                        '<td>' +
+                        '<input type="number" class="quantity-input" value="0" min="0" step="1" min="0">' +
+
+                        '<button type="button" class="btn btn-danger lookDrug" data-medId="' + medRecord.medical_record_id + '">查看药品</button>' +
+                        '</td>' +
+                        '</tr>';
+                    $('#drugBody').append(row);
+                });
+                // 为查看按钮绑定事件
+                $('.lookDrug').on('click', function() {
+                    var medID = $(this).attr('data-medId');
+                    confirmDelete(medID,'delete');
+                });
+            },
+            error: function() {
+                alert('Error loading medRecord information');
+            }
+        });
+    });
+    // JavaScript function to update stock via AJAX
+
+
+    // JavaScript function to confirm drug deletion via AJAX
+    function confirmDelete(medID,action) {
+        if (confirm('查看病例?')) {
+            $.ajax({
+                url: '/patientdrug',
+                type: 'POST',
+                data: {
+                    medId: medId
+                },
+                success: function(response) {
+                    alert('成功');
+                    // window.location.reload(); // 重新加载当前页面
+
+                },
+                error: function() {
+                    alert('Error deleting drug');
+                }
+            });
+        }
+    }
+</script>
+<footer class="footer pt-5">
+    <div class="container pt-5">
+        <div class="row gy-4">
+            <div class="col-lg-3">
+                <h2 class="h5 lined text-white mb-4">About</h2>
+                <p class="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                <p class="text-muted text-sm">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item"><a class="social-link" href="#!"><i class="fab fa-facebook-f"></i></a></li>
+                    <li class="list-inline-item"><a class="social-link" href="#!"><i class="fab fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a class="social-link" href="#!"><i class="fab fa-google-plus"></i></a></li>
+                    <li class="list-inline-item"><a class="social-link" href="#!"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+            </div>
+            <div class="col-lg-5">
+                <h2 class="h5 text-white lined mb-4">Quick Links</h2>
+                <div class="d-flex">
+                    <ul class="list-unstyled d-inline-block me-4 mb-0">
+                        <li class="mb-2"><a class="footer-link" href="#!">Make appointments</a></li>
+                        <li class="mb-2"><a class="footer-link" href="#!">Doctors team</a></li>
+                        <li class="mb-2"><a class="footer-link" href="#!">Departments services</a></li>
+                        <li class="mb-2"><a class="footer-link" href="#!">About our clinic</a></li>
+                        <li class="mb-2"><a class="footer-link" href="#!">Contact us</a></li>
+                    </ul>
+                    <ul class="list-unstyled d-inline-block mb-0">
+                        <li class="mb-2"><a class="footer-link" href="index.jsp">Home </a></li>
+                        <li class="mb-2"><a class="footer-link" href="about.jsp">About us </a></li>
+                        <li class="mb-2"><a class="footer-link" href="contact.jsp">Contact us </a></li>
+                        <li class="mb-2"><a class="footer-link" href="#">About our clinic </a></li>
+                        <li class="mb-2"><a class="footer-link" href="#">Contact us </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h2 class="h5 text-white lined mb-4">Newsletter</h2>
+                <p class="text-muted text-sm">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+                <div class="input-group mb-3">
+                    <input class="form-control text-muted bg-none border-primary" type="text" placeholder="Email address" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" id="button-addon2" type="button"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyrights">
+        <div class="container text-center py-4">
+            <p class="mb-0 text-muted text-sm">&copy;, Your company. <a target="_blank" href="http://www.mobanwang.com/" title="网页模板">网页模板</a>.</p>
+        </div>
+    </div>
+</footer>
+<!-- JavaScript files-->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/front.js"></script>

@@ -82,7 +82,11 @@
                                 <%--                                管理员--%>
                                 <a class="dropdown-item" href="showdoctor.jsp">医生管理</a>
                             </c:if>
-                            <a class="dropdown-item" href="drug.jsp">药品信息</a>
+                            <c:if test="${sessionScope.role == 0||sessionScope.role == 1||sessionScope.role == null}">
+                                <%--                                管理员--%>
+                                <a class="dropdown-item" href="drug.jsp">药品信息</a>
+                            </c:if>
+
                             <a class="dropdown-item" href="#!">Something else here</a>
 
                         </div>
